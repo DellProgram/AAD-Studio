@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Above All Dreams Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Dancing+Script:wght@400;700&family=Exo+2:wght@800&family=Montserrat:wght@400;600&family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'headline': ['Russo One', 'sans-serif'],
+                        'subheadline': ['Dancing Script', 'cursive'],
+                        'body': ['Montserrat', 'sans-serif'],
+                        'cinzel': ['Cinzel', 'serif']
+                    },
+                    colors: {
+                        'gold': {
+                            '400': '#D4AF37',
+                        },
+                        'purple': {
+                           '400': '#8B5CF6',
+                           '500': '#A78BFA'
+                        },
+                        'red': {
+                            '500': '#EF4444'
+                        },
+                        'dark-blue': {
+                            '500': '#1E40AF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-body">
+
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[10%] left-[5%] w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[30%] right-[10%] w-1/4 h-1/4 bg-gold-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[20%] left-[15%] w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[50%] left-[40%] w-1/5 h-1/5 bg-gold-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[5%] right-[25%] w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[70%] left-[5%] w-1/4 h-1/4 bg-gold-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[15%] right-[30%] w-[20%] h-[20%] bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[35%] left-[30%] w-[35%] h-[35%] bg-gold-400/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <header id="main-header" class="absolute top-0 left-0 w-full z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html">
+                <img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto transition-all duration-300">
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link-button">Book Now</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black/95 z-40 p-8 flex flex-col justify-center items-center">
+        <a href="#services" class="mobile-nav-link">Services</a>
+        <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="contact.html" class="mobile-nav-link-button">Book Now</a>
+    </div>
+
+    <main>
+        <section id="hero" class="h-screen flex items-center justify-center relative">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <img src="images/Sports/7.jpeg" alt="Dynamic Dance Photography" class="w-full h-full object-cover">
+            </div>
+            <div class="hero-particle-overlay">
+                <canvas id="hero-particle-canvas"></canvas>
+            </div>
+            
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <h1 class="font-headline text-6xl md:text-8xl text-white uppercase text-glow leading-tight">
+                    <span class="hero-text-animate block">Above All Dreams</span>
+                </h1>
+                <p class="font-subheadline text-3xl md:text-4xl text-gold-400 mt-4 animated-text-container hero-text-animate"></p>
+                <p class="hero-text-animate mt-8 text-lg md:text-xl tracking-widest font-semibold">
+                    <span class="text-purple-500">Photography.</span>
+                    <span class="text-red-500">Videography.</span>
+                    <span class="text-dark-blue-500">Design.</span>
+                </p>
+            </div>
+
+            <div class="absolute bottom-12 left-0 right-0 z-10 hero-text-animate" style="animation-delay: 0.9s;">
+                <div class="flex justify-center">
+                    <a href="contact.html" class="nav-link-button text-lg px-8 py-3">Book Now For a Free Quote</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-24 animate-on-scroll">
+                    <h2 class="font-cinzel text-4xl md:text-5xl font-bold uppercase">Our Services</h2>
+                    <p class="font-body text-lg text-zinc-400 mt-2">What we bring to the table.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                    <div class="animate-on-scroll group justify-self-center md:justify-self-start service-card-wrapper" style="--delay: 0.1s;"><div class="service-card relative rounded-lg overflow-hidden aspect-square w-full max-w-md flex items-end md:-rotate-2"><img src="images/Wedding/1.jpeg" alt="Video Production" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div><div class="relative p-8"><h3 class="font-cinzel text-2xl font-bold text-purple-400">Photo & Video Production</h3><p class="mt-2 text-sm text-zinc-300">State of the art film studio and equipment to make your projects stand out above the rest!</p></div></div></div>
+                    <div class="animate-on-scroll group justify-self-center md:justify-self-end service-card-wrapper" style="--delay: 0.2s;"><div class="service-card relative rounded-lg overflow-hidden aspect-square w-full max-w-md flex items-end md:rotate-2"><img src="images/Club/5.jpeg" alt="Live Streaming" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div><div class="relative p-8"><h3 class="font-cinzel text-2xl font-bold text-purple-400">Live Streaming & Broadcast</h3><p class="mt-2 text-sm text-zinc-300">Take your Radio/Video Podcast, TV Show or Event Promotion to another level!</p></div></div></div>
+                    <div class="animate-on-scroll group justify-self-center md:justify-self-start service-card-wrapper" style="--delay: 0.3s;"><div class="service-card relative rounded-lg overflow-hidden aspect-square w-full max-w-md flex items-end md:-rotate-2"><img src="images/Assets/Web_Design.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/18181b/a1a1aa?text=Web+Design';" alt="Web Design" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div><div class="relative p-8"><h3 class="font-cinzel text-2xl font-bold text-purple-400">Web Design & Development</h3><p class="mt-2 text-sm text-zinc-300">You can’t promote your business without a website. Let us make it the best it can be.</p></div></div></div>
+                    <div class="animate-on-scroll group justify-self-center md:justify-self-end service-card-wrapper" style="--delay: 0.4s;"><div class="service-card relative rounded-lg overflow-hidden aspect-square w-full max-w-md flex items-end md:rotate-2"><img src="images/Assets/McCurdy.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x600/18181b/a1a1aa?text=Printing';" alt="Printing Services" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"><div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div><div class="relative p-8"><h3 class="font-cinzel text-2xl font-bold text-purple-400">Custom Print & Personalization</h3><p class="mt-2 text-sm text-zinc-300">From apparel monogramming to custom vehicle wraps, we provide personalization services for any application.</p></div></div></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="featured-work" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 relative z-10">
+                 <div class="text-center mb-16 animate-on-scroll">
+                    <h2 class="font-cinzel text-4xl md:text-5xl font-bold uppercase">Featured Work</h2>
+                    <p class="font-body text-lg text-zinc-400 mt-2">A glimpse into our world.</p>
+                </div>
+
+                <div class="grid grid-cols-12 gap-4 md:gap-6">
+                    <div class="collage-item col-span-12 md:col-span-4 flex flex-col gap-4 md:gap-6" style="--delay: 0.1s;"><a href="portfolio.html?filter=Wedding" class="group relative block overflow-hidden rounded-lg aspect-[3/4]"><img src="images/Wedding/8.jpeg" alt="Wedding photography" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Wedding</h3></a><a href="portfolio.html?filter=Graduation" class="group relative block overflow-hidden rounded-lg aspect-[3/4]"><img src="images/Graduation/1.jpeg" alt="Graduation photography" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Graduation</h3></a></div>
+                    <div class="collage-item col-span-12 md:col-span-8 flex flex-col gap-4 md:gap-6" style="--delay: 0.15s;"><a href="portfolio.html?filter=Sports" class="group relative block overflow-hidden rounded-lg aspect-[4/3]"><img src="images/Sports/8.jpeg" alt="Sports photography" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Sports</h3></a><div class="grid grid-cols-12 gap-4 md:gap-6"><a href="portfolio.html?filter=Portraits/Headshots" class="group relative block overflow-hidden rounded-lg col-span-12 sm:col-span-7 aspect-[4/5]"><img src="images/Portraits/1.jpeg" alt="Portraits and headshots" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Portraits</h3></a><a href="portfolio.html?filter=Nightclub/Parties" class="group relative block overflow-hidden rounded-lg col-span-12 sm:col-span-5 aspect-[3/4]"><img src="images/Club/1.jpeg" alt="Nightclub and party photography" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Nightclub</h3></a></div></div>
+                    <a href="portfolio.html?filter=Events" class="collage-item group relative block overflow-hidden rounded-lg col-span-12 aspect-[21/9]" style="--delay: 0.2s;"><img src="images/Events/1.jpeg" alt="Event photography" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div><h3 class="absolute bottom-6 left-6 font-cinzel text-2xl md:text-3xl font-bold uppercase z-10">Events</h3></a>
+                </div>
+
+                 <div class="text-center mt-16 animate-on-scroll" style="--delay: 0.3s;">
+                     <a href="portfolio.html" class="nav-link-button-secondary">View Full Portfolio</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sponsors" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 animate-on-scroll">
+                    <h2 class="font-cinzel text-4xl md:text-5xl font-bold uppercase">Our Partners</h2>
+                    <p class="font-body text-lg text-zinc-400 mt-2">Proudly working with industry leaders.</p>
+                </div>
+                <div class="scroller">
+                    <div class="scroller__inner">
+                        <img src="images/logos/ABA_UF_Black_Alumni_Logo.jpg" alt="UF Black Alumni Logo">
+                        <img src="images/logos/Badger_Logo.png" alt="Badger Logo">
+                        <img src="images/logos/Childrens_ATL_Logo.png" alt="Childrens Healthcare of Atlanta Logo">
+                        <img src="images/logos/City_Logo.png" alt="City Logo">
+                        <img src="images/logos/CityView_Sports_Bar_Logo.png" alt="CityView Sports Bar Logo">
+                        <img src="images/logos/College_Park_Logo.jpg" alt="College Park Middle School Logo">
+                        <img src="images/logos/DJ_Baby_LAC_Logo.png" alt="DJ Baby LAC Radio Logo">
+                        <img src="images/logos/EC_Bullets_Logo.jpeg" alt="EC Bullets Logo">
+                        <img src="images/logos/Edgewater_Eagles_Logo.png" alt="Edgewater Eagles Logo">
+                        <img src="images/logos/Firecrackers_Logo.png" alt="Firecrackers Softball Logo">
+                        <img src="images/logos/Gozzer-Logo.jpg" alt="Gozzer Ranch Logo">
+                        <img src="images/logos/Home_Depot_Logo.png" alt="Home Depot Logo">
+                        <img src="images/logos/Jones_Highschool_Logo.png" alt="Jones Highschool Logo">
+                        <img src="images/logos/Kappa_Alpha_Psi_Logo.png" alt="Kappa Alpha Psi Logo">
+                        <img src="images/logos/PearTree_Design_Studio_Logo.png" alt="PearTree Design Studio Logo">
+                        <img src="images/logos/Rock_Solid_Creations_Logo.jpg" alt="Rock Solid Creations Logo">
+                        <img src="images/logos/Verizon_Logo.jpg" alt="Verizon Logo">
+                        <img src="images/logos/Future_Forward_Logo.png" alt="Future Forward Logo">
+                        <img src="images/logos/Golf-Logo.png" alt="Zeta Phi Golf Tournament Logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-20 bg-transparent">
+        <div class="container mx-auto px-6 text-center">
+            <img src="images/Assets/AAD_Logo.png" class="h-16 w-auto mx-auto mb-6 opacity-75">
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-zinc-800 max-w-lg mx-auto">
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 text-zinc-400">
+                    <a href="mailto:Abovealldreams2@outlook.com" class="flex items-center gap-2 hover:text-gold-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                        </svg>
+                        <span>Abovealldreams2@outlook.com</span>
+                    </a>
+                    <a href="tel:+14076072000" class="flex items-center gap-2 hover:text-gold-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                           <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                        </svg>
+                        <span>407-607-2000</span>
+                    </a>
+                </div>
+                 <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                    </svg>
+                    <span>332 Wilshire Blvd, Casselberry, FL 32707</span>
+                </a>
+            </div>
+
+            <p class="mt-8 text-sm text-zinc-500">&copy; 2025 Above All Dreams Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+      // Back to Top
+    <button id="back-to-top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+        </svg>
+    </button>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Setup ---
+        const mainHeader = document.getElementById('main-header');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        // Mobile Menu
+        if (mainHeader && mobileMenuButton && mobileMenu) {
+            window.addEventListener('scroll', () => {
+                mainHeader.classList.toggle('header-scrolled', window.scrollY > 50);
+            });
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden');
+            });
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    document.body.classList.remove('overflow-hidden');
+                });
+            });
+        }
+        
+        // Scroll Animations
+        const itemsToAnimate = document.querySelectorAll('.animate-on-scroll, .collage-item');
+        if (itemsToAnimate.length > 0) {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.style.getPropertyValue('--delay');
+                        entry.target.style.transitionDelay = delay || '0s';
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            itemsToAnimate.forEach(item => {
+                observer.observe(item);
+            });
+        }
+
+        // Text Animation 
+        const heroTexts = document.querySelectorAll('.hero-text-animate');
+        if (heroTexts.length > 0) {
+            heroTexts.forEach((text) => {
+                let delay = 0;
+                if (text.classList.contains('animated-text-container')) {
+                    delay = 0.5;
+                } else if (text.tagName === 'P') {
+                    delay = 0.7;
+                } else if (text.querySelector('a')) { 
+                    delay = 0.9;
+                }
+                else {
+                    delay = 0.2 + (Array.from(text.parentElement.children).indexOf(text) * 0.1);
+                }
+                text.style.animationDelay = `${delay}s`;
+            });
+        }
+        
+        const animatedTextContainer = document.querySelector('.animated-text-container');
+        if (animatedTextContainer) {
+            const text = "Creative Studio";
+            animatedTextContainer.innerHTML = '';
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.animationDelay = `${0.5 + i * 0.05}s`;
+                animatedTextContainer.appendChild(span);
+            });
+        }
+        
+        // Particle Animation
+        const setupCanvas = (canvasId, particleCountDivisor, particleColor1, particleColor2) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            const resizeCanvas = () => {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+
+            class Particle {
+                constructor(x, y, dirX, dirY, size, color) {
+                    this.x = x; this.y = y; this.directionX = dirX; this.directionY = dirY;
+                    this.size = size; this.color = color;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) { this.directionX = -this.directionX; }
+                    if (this.y > canvas.height || this.y < 0) { this.directionY = -this.directionY; }
+                    this.x += this.directionX; this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            const initParticles = () => {
+                resizeCanvas();
+                particlesArray = [];
+                let numberOfParticles = (canvas.height * canvas.width) / particleCountDivisor;
+                if (numberOfParticles === 0) return;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * (canvas.width - size * 2)) + size * 2;
+                    let y = (Math.random() * (canvas.height - size * 2)) + size * 2;
+                    let dirX = (Math.random() * 0.4) - 0.2;
+                    let dirY = (Math.random() * 0.4) - 0.2;
+                    let color = i % 2 === 0 ? particleColor1 : particleColor2;
+                    particlesArray.push(new Particle(x, y, dirX, dirY, size, color));
+                }
+            };
+            
+            const animateParticles = () => {
+                requestAnimationFrame(animateParticles);
+                if(particlesArray) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particlesArray.length; i++) {
+                        particlesArray[i].update();
+                    }
+                }
+            };
+
+            window.addEventListener('resize', initParticles);
+            initParticles();
+            animateParticles();
+        };
+
+        setupCanvas('particle-canvas', 12000, 'rgba(167, 139, 250, 0.3)', 'rgba(212, 175, 55, 0.3)');
+        setupCanvas('hero-particle-canvas', 9000, 'rgba(167, 139, 250, 0.5)', 'rgba(212, 175, 55, 0.5)');
+
+
+        // Logo Scroller 
+        const scrollers = document.querySelectorAll(".scroller");
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            addAnimation();
+        }
+
+        function addAnimation() {
+            scrollers.forEach((scroller) => {
+                scroller.setAttribute("data-animated", true);
+                const scrollerInner = scroller.querySelector(".scroller__inner");
+                const scrollerContent = Array.from(scrollerInner.children);
+                scrollerContent.forEach((item) => {
+                    const duplicatedItem = item.cloneNode(true);
+                    duplicatedItem.setAttribute("aria-hidden", true);
+                    scrollerInner.appendChild(duplicatedItem);
+                });
+            });
+        }
+
+        // Back to Top Button 
+        const backToTopButton = document.getElementById('back-to-top');
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
