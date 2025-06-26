@@ -216,7 +216,8 @@ main, header, footer {
 }
 
 .service-slide.active {
-    display: block; /* Changed from flex for mobile stacking */
+    display: flex;
+    justify-content: center;
 }
 
 .service-slide a.group {
@@ -511,6 +512,7 @@ html.text-size-xl {
 
 /* --- Mobile Responsiveness --- */
 @media (max-width: 767px) {
+
     /* Services Section */
     #services {
         padding-top: 4rem;
@@ -521,93 +523,58 @@ html.text-size-xl {
         font-size: 2.25rem; /* 36px */
     }
 
-    /* Set up the stacked layout */
+    #services-carousel {
+        position: relative;
+        padding: 0 2.5rem; /* Make room for side arrows */
+    }
+
     .service-slide a.group {
-        max-width: 90vw;
-        aspect-ratio: 16 / 9; /* Give a standard video aspect ratio */
+        max-width: 100%;
+        width: 100%;
+        display: flex; /* Use flex to help with centering */
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 16 / 10;
+        background-color: #000; /* Add a black background for letterboxing */
     }
-    .service-slide a.group.aspect-portrait {
-       aspect-ratio: 4/5; /* Keep portrait ratio for photography */
-    }
+
     .service-slide img,
     .service-slide video {
-        object-fit: cover;
+        object-fit: contain; /* This prevents any cropping */
+        width: 100%;
+        height: 100%;
     }
-
-    /* Hide the original text overlay on mobile */
+    
+    /* Style the text overlay for mobile */
     .service-slide .absolute.bottom-0 {
-        display: none;
+        padding: 1rem;
+        /* Add a slightly stronger gradient to ensure text readability */
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);
     }
 
-    /* Style the new mobile content container that JS will create */
-    .service-mobile-content {
-        padding: 1rem 0.5rem;
-        text-align: center;
-    }
-
-    .service-mobile-title {
-        font-family: var(--font-cinzel);
-        font-size: 1.5rem; /* 24px */
-        font-weight: 700;
+    .service-slide h3 {
+        font-size: 1.125rem; /* 18px */
         line-height: 1.3;
     }
 
-    .service-toggle-btn {
-        font-family: var(--font-body);
-        font-weight: 600;
-        color: var(--color-zinc-400);
-        background: none;
-        border: none;
-        padding: 0.5rem;
-        margin-top: 0.5rem;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: color 0.3s;
-    }
-
-    .service-toggle-btn:hover {
-        color: var(--color-gold);
-    }
-
-    .service-toggle-btn svg {
-        width: 1rem;
-        height: 1rem;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .service-toggle-btn.open svg {
-        transform: rotate(180deg);
-    }
-    
-    /* Style the description that will be revealed */
-    .service-description {
-        max-height: 0;
+    .service-slide p {
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.4;
+        margin-top: 0.25rem; /* Add a little space */
+        /* Use text truncation to prevent overflow */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out;
-        font-size: 0.9rem; /* 14.4px */
-        line-height: 1.6;
-        color: var(--color-zinc-300);
-    }
-    
-    .service-description.open {
-        margin-top: 0.75rem; /* 12px */
-        max-height: 200px; /* Allow space for description to expand */
+        text-overflow: ellipsis;
     }
 
-    /* Carousel Nav on mobile */
-    #services-carousel {
-        position: relative;
-        padding: 0 2.5rem; /* Make space for the arrows */
-    }
-
+    /* Adjust nav buttons */
     .carousel-nav-btn {
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1.25rem;
-        /* Position arrows within the padding of the carousel */
-        top: calc(45vw); /* ~50% of 16:9 image height */
+        top: 50%;
         transform: translateY(-50%);
     }
 
