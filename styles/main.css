@@ -156,8 +156,7 @@ main, header, footer {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     position: relative;
-    overflow: hidden;
-    transition: border-top-color 0.4s ease;
+    overflow-x: clip; /* Prevent horizontal overflow from nav buttons */
 }
 
 #services:hover, #featured-work:hover, #sponsors:hover {
@@ -521,26 +520,31 @@ html.text-size-xl {
 
     #services h2 {
         font-size: 2.25rem; /* 36px */
+        margin-bottom: 2rem;
     }
 
+    /* Make carousel take up space for side arrows */
     #services-carousel {
         position: relative;
-        padding: 0 2.5rem; /* Make room for side arrows */
+        padding: 0 2.5rem;
+    }
+    
+    .service-slide a.group {
+        /* Make the card big */
+        width: 100%; 
+        max-width: 100%;
+        /* Use cover to fill the area and prevent black bars */
+        /* This will cause minimal cropping to fit the aspect ratio */
+        aspect-ratio: 16 / 9; /* Default aspect ratio */
     }
 
-    .service-slide a.group {
-        max-width: 100%;
-        width: 100%;
-        display: flex; /* Use flex to help with centering */
-        align-items: center;
-        justify-content: center;
-        aspect-ratio: 16 / 10;
-        background-color: #000; /* Add a black background for letterboxing */
+    .service-slide a.group.aspect-portrait {
+       aspect-ratio: 4/5; /* Keep portrait ratio for photography */
     }
 
     .service-slide img,
     .service-slide video {
-        object-fit: contain; /* This prevents any cropping */
+        object-fit: cover; /* Fill the container, no black bars */
         width: 100%;
         height: 100%;
     }
@@ -553,28 +557,23 @@ html.text-size-xl {
     }
 
     .service-slide h3 {
-        font-size: 1.125rem; /* 18px */
+        font-size: 1.25rem; /* 20px */
         line-height: 1.3;
     }
 
     .service-slide p {
         font-size: 0.875rem; /* 14px */
         line-height: 1.4;
-        margin-top: 0.25rem; /* Add a little space */
-        /* Use text truncation to prevent overflow */
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        margin-top: 0.5rem;
     }
 
-    /* Adjust nav buttons */
+    /* Adjust nav buttons to sit in the padded area */
     .carousel-nav-btn {
         width: 2.5rem;
         height: 2.5rem;
         font-size: 1.25rem;
-        top: 50%;
+        /* Position arrows within the padding of the carousel */
+        top: 50%; 
         transform: translateY(-50%);
     }
 
@@ -587,6 +586,6 @@ html.text-size-xl {
     }
 
     #carousel-dots {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 }
