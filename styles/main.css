@@ -126,7 +126,7 @@ main, header, footer {
 /* Mobile Menu */
 .mobile-nav-link {
     font-family: var(--font-headline);
-    font-size: 2.25rem;
+    font-size: 1.875rem; /* Reduced from 2.25rem */
     font-weight: 700;
     color: #D1D5DB;
     padding: 1rem 0;
@@ -139,7 +139,7 @@ main, header, footer {
 
 .mobile-nav-link-button {
     font-family: var(--font-headline);
-    font-size: 1.875rem;
+    font-size: 1.5rem; /* Reduced from 1.875rem */
     font-weight: 700;
     text-transform: uppercase;
     background: var(--color-gold);
@@ -219,15 +219,12 @@ main, header, footer {
 .service-slide.active {
     display: flex;
     justify-content: center;
-    /* On mobile, we want the items to stack */
-    flex-direction: column; 
-    align-items: center;
 }
 
+/* Mobile-first carousel container */
 .service-slide-container {
     position: relative;
     width: 100%;
-    max-width: 64rem; /* max-w-4xl */
     margin-left: auto;
     margin-right: auto;
     border-radius: 0.5rem;
@@ -236,6 +233,14 @@ main, header, footer {
     border-width: 2px;
     border-color: rgb(139 92 246 / 0.5);
 }
+
+/* Desktop styles for carousel container */
+@media (min-width: 768px) {
+    .service-slide-container {
+        max-width: 64rem; /* max-w-4xl for desktop */
+    }
+}
+
 
 .group:hover .service-slide-container {
     animation: breathing-border 2s ease-in-out infinite;
@@ -264,22 +269,31 @@ main, header, footer {
     transform: scale(1.1);
 }
 
-
+/* Mobile-first carousel nav buttons */
 .carousel-nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
     color: white;
     border: 1px solid var(--color-zinc-500);
     border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
+    width: 2.5rem;  /* Smaller for mobile */
+    height: 2.5rem; /* Smaller for mobile */
+    font-size: 1.25rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 30;
+}
+
+/* Desktop styles for nav buttons */
+@media (min-width: 768px) {
+    .carousel-nav-btn {
+        width: 3rem; /* Original size */
+        height: 3rem; /* Original size */
+        font-size: 1.5rem; /* Original font size */
+    }
 }
 
 .carousel-nav-btn:hover {
@@ -348,14 +362,23 @@ main, header, footer {
     animation: scroll 60s linear infinite;
 }
 
+/* Mobile-first logo styles */
 .scroller__inner img {
-    height: 80px; /* 5rem */
-    max-width: 160px; /* 10rem */
+    height: 60px; /* Smaller for mobile */
+    max-width: 120px;
     width: auto;
     object-fit: contain;
     filter: grayscale(100%);
     opacity: 0.75;
     transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
+/* Desktop logo styles */
+@media (min-width: 768px) {
+    .scroller__inner img {
+        height: 80px; /* Original height */
+        max-width: 160px; /* Original max-width */
+    }
 }
 
 .scroller__inner img:hover {
@@ -364,14 +387,15 @@ main, header, footer {
 }
 
 /* Back to Top Button */
+/* Mobile-first styles */
 #back-to-top {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    right: 1rem;
     background-color: var(--color-dark-blue);
-    color: black;
-    width: 3rem;
-    height: 3rem;
+    color: white; /* Changed from black for visibility */
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -385,60 +409,20 @@ main, header, footer {
     cursor: pointer;
 }
 
+/* Desktop styles */
+@media (min-width: 768px) {
+    #back-to-top {
+        bottom: 2rem;
+        right: 2rem;
+        width: 3rem;
+        height: 3rem;
+    }
+}
+
 #back-to-top.show {
     opacity: 1;
     transform: translateY(0);
 }
-
-/* Styles for the NEW mobile-only content blocks */
-.service-mobile-content {
-    display: none; /* Hidden by default */
-    width: 90%;
-    padding: 1rem;
-    text-align: center;
-}
-.service-mobile-title {
-    font-family: var(--font-cinzel);
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-.service-toggle-btn {
-    font-family: var(--font-body);
-    font-weight: 600;
-    color: var(--color-zinc-300);
-    background: transparent;
-    border: 1px solid var(--color-zinc-500);
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    margin-top: 0.75rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-}
-.service-toggle-btn:hover {
-    color: var(--color-gold);
-    border-color: var(--color-gold);
-}
-.service-toggle-btn svg {
-    transition: transform 0.3s ease;
-}
-.service-toggle-btn.open svg {
-    transform: rotate(180deg);
-}
-.service-description {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-    font-size: 0.875rem;
-    color: var(--color-zinc-400);
-}
-.service-description.open {
-    padding-top: 1rem;
-    max-height: 200px; /* Adjust as needed */
-}
-
 
 /* Keyframe Animations */
 @keyframes hero-reveal-up {
