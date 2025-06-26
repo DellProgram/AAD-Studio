@@ -43,14 +43,13 @@ main, header, footer {
 
 /* Header & Navigation */
 #main-header {
-    border-bottom: 1px solid transparent;
-    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-bottom-color 0.3s ease, padding 0.3s ease;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease;
 }
 
 #main-header.header-scrolled {
     background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
-    border-bottom-color: var(--color-zinc-800);
+    border-bottom: 1px solid var(--color-zinc-800);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
@@ -186,7 +185,7 @@ main, header, footer {
 }
 
 .text-glow {
-    text-shadow: 0 0 15px rgba(167, 139, 250, 0.5), 0 0 5px rgba(212, 175, 55, 0.3);
+    text-shadow: 0 0 15px rgba(239, 68, 68, 0.5), 0 0 5px rgba(212, 175, 55, 0.3);
 }
 
 .animated-text-container { display: inline-block; }
@@ -209,47 +208,86 @@ main, header, footer {
     transform: translateY(0);
 }
 
-/* Service Card Styling */
-.service-card-wrapper {
-    transition: transform 0.3s ease;
+
+/* Services Carousel */
+.service-slide {
+    display: none;
+    animation: fade-in 0.8s ease-in-out;
 }
 
-.service-card-wrapper:hover {
-    transform: translateY(-8px) scale(1.03);
+.service-slide.active {
+    display: flex;
+    justify-content: center;
 }
 
-.service-card {
+.service-slide a.group {
+    display: block;
     position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
 }
 
-.service-card::before, .service-card::after {
-    content: '';
+.unmute-button {
     position: absolute;
-}
-.service-card::before {
     top: 1rem;
-    left: 1rem;
-    width: 0;
-    height: 0;
-    border-top: 3px solid var(--color-purple-light);
-    border-left: 3px solid var(--color-purple-light);
-    transition: width 0.3s ease, height 0.3s ease;
-}
-.service-card::after {
-    bottom: 1rem;
     right: 1rem;
-    width: 0;
-    height: 0;
-    border-bottom: 3px solid var(--color-purple-light);
-    border-right: 3px solid var(--color-purple-light);
-    transition: width 0.3s ease, height 0.3s ease;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-.group:hover .service-card::before,
-.group:hover .service-card::after {
-    width: calc(100% - 2rem);
-    height: calc(100% - 2rem);
+
+.unmute-button:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    transform: scale(1.1);
+}
+
+
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 30;
+}
+
+.carousel-nav-btn:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: var(--color-zinc-500);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+    background-color: var(--color-purple-400);
+}
+
+.carousel-dot.active {
+    background-color: var(--color-gold);
+    transform: scale(1.25);
 }
 
 
@@ -447,4 +485,27 @@ html.text-size-xl {
     to {
         transform: translate(calc(-50% - 2rem));
     }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathing-border {
+  0% {
+    border-color: var(--color-purple-light);
+  }
+  50% {
+    border-color: var(--color-gold);
+  }
+  100% {
+    border-color: var(--color-purple-light);
+  }
 }
