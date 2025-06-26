@@ -219,6 +219,9 @@ main, header, footer {
 .service-slide.active {
     display: flex;
     justify-content: center;
+    /* On mobile, we want the items to stack */
+    flex-direction: column; 
+    align-items: center;
 }
 
 .service-slide-container {
@@ -387,6 +390,56 @@ main, header, footer {
     transform: translateY(0);
 }
 
+/* Styles for the NEW mobile-only content blocks */
+.service-mobile-content {
+    display: none; /* Hidden by default */
+    width: 90%;
+    padding: 1rem;
+    text-align: center;
+}
+.service-mobile-title {
+    font-family: var(--font-cinzel);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.service-toggle-btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-zinc-300);
+    background: transparent;
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+.service-toggle-btn:hover {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+.service-toggle-btn svg {
+    transition: transform 0.3s ease;
+}
+.service-toggle-btn.open svg {
+    transform: rotate(180deg);
+}
+.service-description {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    font-size: 0.875rem;
+    color: var(--color-zinc-400);
+}
+.service-description.open {
+    padding-top: 1rem;
+    max-height: 200px; /* Adjust as needed */
+}
+
+
 /* Keyframe Animations */
 @keyframes hero-reveal-up {
     to {
@@ -441,48 +494,73 @@ main, header, footer {
 /* ---------------------------------- */
 @media (max-width: 767px) {
     
-    /* Widen the carousel container to allow space for buttons outside the image */
-    #services .container {
-        padding-left: 0rem;
-        padding-right: 0rem;
-    }
-    
-    /* Shrink the slide content to make space for nav buttons */
+    /* Change the layout of the slide link to be a column */
     .service-slide > a {
-        width: 85%;
-        margin: 0 auto; /* Center the shrunken slide content */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0; /* Remove gap between image and text block */
+        width: 100%;
+        text-decoration: none; /* remove underline from link */
     }
 
-    /* Reduce font size for service slide titles and descriptions on mobile */
-    .service-slide h3 {
-        font-size: 1.25rem; /* Equivalent to text-xl */
-        line-height: 1.5rem;
-    }
-
-    .service-slide p {
-        font-size: 0.875rem; /* Equivalent to text-sm */
-        line-height: 1.25rem;
-        margin-top: 0.5rem; /* A little space between title and text */
-    }
-
-    /* Adjust padding inside the text overlay box on mobile */
+    /* Hide the original text overlay on mobile */
     .service-slide .absolute.bottom-0 {
-        padding: 1rem; /* Equivalent to p-4 */
+        display: none;
+    }
+
+    /* Display our new mobile content block */
+    .service-mobile-content {
+        display: block;
     }
     
-    /* Position nav buttons in the space created on the sides */
+    /* Adjust the image/video container */
+    .service-slide > a > .group {
+       width: 90%;
+       /* Ensure the portrait image doesn't get squished */
+       flex-shrink: 0;
+    }
+
+    /* Position nav buttons to the side of the content */
+    #services-carousel {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #services-carousel > div[class^="service-slide"] {
+       width: 80%; /* Shrink the content to make space */
+    }
+
     .carousel-nav-btn {
         width: 2.5rem;   /* 40px */
         height: 2.5rem;  /* 40px */
         font-size: 1.25rem;
+        /* Make them static so they don't overlap */
+        position: static;
+        transform: none;
     }
 
-    #prev-slide-btn {
-        left: 0.5rem; /* Position in the space to the left */
+    /* Change the main carousel container to a flexbox for positioning buttons */
+    #services .relative {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    #next-slide-btn {
-        right: 0.5rem; /* Position in the space to the right */
+    /* Override for the dots container positioning */
+    #carousel-dots {
+        position: absolute;
+        bottom: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Adjust the main header for smaller screens */
+    #main-header nav {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }
-
