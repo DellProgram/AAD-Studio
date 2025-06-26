@@ -435,3 +435,47 @@ main, header, footer {
     border-color: var(--color-purple-light);
   }
 }
+
+/* ---------------------------------- */
+/* -- MOBILE RESPONSIVE ADJUSTMENTS -- */
+/* ---------------------------------- */
+@media (max-width: 767px) {
+    
+    /* Adjust padding on the entire services section for mobile */
+    #services .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    /* Reduce font size for service slide titles and descriptions on mobile */
+    .service-slide h3 {
+        font-size: 1.25rem; /* Equivalent to text-xl */
+        line-height: 1.5rem;
+    }
+
+    .service-slide p {
+        font-size: 0.875rem; /* Equivalent to text-sm */
+        line-height: 1.25rem;
+        margin-top: 0.5rem; /* A little space between title and text */
+    }
+
+    /* Adjust padding inside the text overlay box on mobile */
+    .service-slide .absolute.bottom-0 {
+        padding: 1rem; /* Equivalent to p-4 */
+    }
+    
+    /* Make carousel navigation buttons smaller and position them slightly inwards */
+    .carousel-nav-btn {
+        width: 2.5rem;   /* 40px */
+        height: 2.5rem;  /* 40px */
+        font-size: 1.25rem;
+    }
+
+    #prev-slide-btn {
+        left: 0.25rem; /* 4px from the edge */
+    }
+
+    #next-slide-btn {
+        right: 0.25rem; /* 4px from the edge */
+    }
+}
