@@ -509,3 +509,62 @@ html.text-size-xl {
     border-color: var(--color-purple-light);
   }
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 767px) {
+
+    /* Services Section */
+    #services h2 {
+        font-size: 2rem; /* 32px from 36px */
+    }
+    
+    #services-carousel .service-slide a.group {
+        max-width: 90vw;
+    }
+
+    /* Make landscape-oriented slides square on mobile to give them more height */
+    #services-carousel .service-slide a.group.aspect-video {
+        aspect-ratio: 1 / 1; 
+    }
+    
+    #services-carousel .service-slide img,
+    #services-carousel .service-slide video {
+        object-fit: cover; /* Ensure media fills the new container size */
+    }
+    
+    /* Adjust text sizes within the service cards for mobile */
+    #services-carousel .service-slide .absolute.bottom-0 {
+        padding: 1rem; /* 16px from 24px */
+    }
+
+    #services-carousel .service-slide h3 {
+        font-size: 1.125rem; /* 18px from 24px */
+        line-height: 1.4;
+    }
+
+    #services-carousel .service-slide p {
+        font-size: 0.875rem; /* 14px */
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Truncate text to 3 lines */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Make carousel navigation buttons smaller on mobile */
+    .carousel-nav-btn {
+        width: 2.5rem;  /* 40px */
+        height: 2.5rem; /* 40px */
+        font-size: 1.25rem; /* 20px */
+    }
+
+    #carousel-dots {
+        margin-top: 1rem;
+    }
+    
+    #services {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+}
