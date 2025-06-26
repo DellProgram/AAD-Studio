@@ -441,10 +441,16 @@ main, header, footer {
 /* ---------------------------------- */
 @media (max-width: 767px) {
     
-    /* Adjust padding on the entire services section for mobile */
+    /* Widen the carousel container to allow space for buttons outside the image */
     #services .container {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
+    
+    /* Shrink the slide content to make space for nav buttons */
+    .service-slide > a {
+        width: 85%;
+        margin: 0 auto; /* Center the shrunken slide content */
     }
 
     /* Reduce font size for service slide titles and descriptions on mobile */
@@ -464,7 +470,7 @@ main, header, footer {
         padding: 1rem; /* Equivalent to p-4 */
     }
     
-    /* Make carousel navigation buttons smaller and position them slightly inwards */
+    /* Position nav buttons in the space created on the sides */
     .carousel-nav-btn {
         width: 2.5rem;   /* 40px */
         height: 2.5rem;  /* 40px */
@@ -472,10 +478,10 @@ main, header, footer {
     }
 
     #prev-slide-btn {
-        left: 0.25rem; /* 4px from the edge */
+        left: 0.5rem; /* Position in the space to the left */
     }
 
     #next-slide-btn {
-        right: 0.25rem; /* 4px from the edge */
+        right: 0.5rem; /* Position in the space to the right */
     }
 }
