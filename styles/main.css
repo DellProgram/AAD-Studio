@@ -515,30 +515,26 @@ html.text-size-xl {
 
     /* Services Section */
     #services h2 {
-        font-size: 2rem; /* 32px from 36px */
+        font-size: 2rem; /* 32px */
     }
     
     #services-carousel .service-slide a.group {
-        max-width: 90vw;
-    }
-
-    /* Make landscape-oriented slides square on mobile to give them more height */
-    #services-carousel .service-slide a.group.aspect-video {
-        aspect-ratio: 1 / 1; 
+        max-width: 80vw;
+        background-color: #111; /* Add a dark background for letterboxing */
     }
     
     #services-carousel .service-slide img,
     #services-carousel .service-slide video {
-        object-fit: cover; /* Ensure media fills the new container size */
+        object-fit: contain; /* Change from 'cover' to prevent cropping */
     }
     
     /* Adjust text sizes within the service cards for mobile */
     #services-carousel .service-slide .absolute.bottom-0 {
-        padding: 1rem; /* 16px from 24px */
+        padding: 1rem; /* 16px */
     }
 
     #services-carousel .service-slide h3 {
-        font-size: 1.125rem; /* 18px from 24px */
+        font-size: 1.125rem; /* 18px */
         line-height: 1.4;
     }
 
@@ -552,15 +548,23 @@ html.text-size-xl {
         text-overflow: ellipsis;
     }
 
-    /* Make carousel navigation buttons smaller on mobile */
+    /* Make carousel navigation buttons smaller and move them outside the image */
     .carousel-nav-btn {
         width: 2.5rem;  /* 40px */
         height: 2.5rem; /* 40px */
         font-size: 1.25rem; /* 20px */
     }
 
+    #prev-slide-btn {
+        left: -0.75rem; /* Positioned outside the slide container */
+    }
+
+    #next-slide-btn {
+        right: -0.75rem; /* Positioned outside the slide container */
+    }
+
     #carousel-dots {
-        margin-top: 1rem;
+        margin-top: 2rem; /* Increased margin to give space for buttons */
     }
     
     #services {
