@@ -124,6 +124,24 @@ main, header, footer {
 }
 
 /* Mobile Menu */
+#mobile-menu {
+    opacity: 0;
+    transform: translateX(2rem); /* Start slightly off-screen to the right */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none;
+}
+#mobile-menu.menu-active {
+    opacity: 1;
+    transform: translateX(0); /* Slide in to its final position */
+    pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+    #mobile-menu {
+        display: none !important;
+    }
+}
+
 .mobile-nav-link {
     font-family: var(--font-headline);
     font-size: 1.875rem; /* Reduced from 2.25rem */
@@ -210,7 +228,7 @@ main, header, footer {
 }
 
 
-/* Services Carousel */
+/* Services Carousel (for index.html) */
 .service-slide {
     display: none;
     animation: fade-in 0.8s ease-in-out;
@@ -219,31 +237,6 @@ main, header, footer {
 .service-slide.active {
     display: flex;
     justify-content: center;
-}
-
-/* Mobile-first carousel container */
-.service-slide-container {
-    position: relative;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 10px 15px -3px rgb(139 92 246 / 0.1), 0 4px 6px -4px rgb(139 92 246 / 0.1);
-    border-width: 2px;
-    border-color: rgb(139 92 246 / 0.5);
-}
-
-/* Desktop styles for carousel container */
-@media (min-width: 768px) {
-    .service-slide-container {
-        max-width: 64rem; /* max-w-4xl for desktop */
-    }
-}
-
-
-.group:hover .service-slide-container {
-    animation: breathing-border 2s ease-in-out infinite;
 }
 
 .unmute-button {
@@ -269,7 +262,6 @@ main, header, footer {
     transform: scale(1.1);
 }
 
-/* Mobile-first carousel nav buttons */
 .carousel-nav-btn {
     position: absolute;
     top: 50%;
@@ -278,8 +270,8 @@ main, header, footer {
     color: white;
     border: 1px solid var(--color-zinc-500);
     border-radius: 50%;
-    width: 2.5rem;  /* Smaller for mobile */
-    height: 2.5rem; /* Smaller for mobile */
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.25rem;
     font-weight: bold;
     cursor: pointer;
@@ -287,12 +279,11 @@ main, header, footer {
     z-index: 30;
 }
 
-/* Desktop styles for nav buttons */
 @media (min-width: 768px) {
     .carousel-nav-btn {
-        width: 3rem; /* Original size */
-        height: 3rem; /* Original size */
-        font-size: 1.5rem; /* Original font size */
+        width: 3rem; 
+        height: 3rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -321,7 +312,7 @@ main, header, footer {
 }
 
 
-/* Featured Work Collage Styling */
+/* Featured Work Collage Styling (for index.html) */
 #featured-work .group {
     border: 2px solid rgba(255, 255, 255, 0.2);
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6);
@@ -342,7 +333,7 @@ main, header, footer {
     transform: scale(1.05);
 }
 
-/* Partner Scroller */
+/* Partner Scroller (for index.html) */
 .scroller {
     max-width: 100%;
     overflow: hidden;
@@ -362,9 +353,8 @@ main, header, footer {
     animation: scroll 60s linear infinite;
 }
 
-/* Mobile-first logo styles */
 .scroller__inner img {
-    height: 60px; /* Smaller for mobile */
+    height: 60px; 
     max-width: 120px;
     width: auto;
     object-fit: contain;
@@ -373,11 +363,10 @@ main, header, footer {
     transition: filter 0.4s ease, opacity 0.4s ease;
 }
 
-/* Desktop logo styles */
 @media (min-width: 768px) {
     .scroller__inner img {
-        height: 80px; /* Original height */
-        max-width: 160px; /* Original max-width */
+        height: 80px; 
+        max-width: 160px;
     }
 }
 
@@ -387,13 +376,12 @@ main, header, footer {
 }
 
 /* Back to Top Button */
-/* Mobile-first styles */
 #back-to-top {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    background-color: var(--color-dark-blue);
-    color: white; /* Changed from black for visibility */
+    background-color: var(--color-gold);
+    color: black;
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
@@ -409,7 +397,6 @@ main, header, footer {
     cursor: pointer;
 }
 
-/* Desktop styles */
 @media (min-width: 768px) {
     #back-to-top {
         bottom: 2rem;
@@ -424,6 +411,122 @@ main, header, footer {
     transform: translateY(0);
 }
 
+/* --- STYLES FOR SERVICES PAGE (ADDITIVE) --- */
+
+/* Sticky Service Navigation Bar */
+#services-nav {
+    top: 0;
+}
+
+.service-nav-link {
+    white-space: nowrap;
+}
+
+.service-nav-link.active {
+    color: var(--color-gold);
+}
+
+.service-nav-link.active::after {
+    width: 80%;
+}
+
+/* Service Section & Gallery Styling */
+.service-section {
+    scroll-margin-top: 120px;
+}
+
+/* ADDITION: Define section-specific colors for borders */
+#service-photography       { --section-color: #8B5CF6; }
+#service-video-production  { --section-color: #EF4444; }
+#service-commercials       { --section-color: #1E40AF; }
+#service-interviews        { --section-color: #D4AF37; }
+#service-web-design        { --section-color: #60A5FA; }
+#service-printing          { --section-color: #EF4444; }
+
+/* Gradient Title Styling */
+#service-photography .service-description h2      { background: linear-gradient(to right, #A78BFA, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#service-video-production .service-description h2 { background: linear-gradient(to right, #f87171, #EF4444); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#service-commercials .service-description h2      { background: linear-gradient(to right, #60A5FA, #1E40AF); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#service-interviews .service-description h2       { background: linear-gradient(to right, #fde047, #D4AF37); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#service-web-design .service-description h2       { background: linear-gradient(to right, #60A5FA, #D4AF37); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#service-printing .service-description h2         { background: linear-gradient(to right, #f87171, #EF4444); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* CHANGE: New border styles and ratio fixes */
+.main-image-container, .thumbnail-image, .thumbnail-video {
+    overflow: hidden;
+    border-radius: 0.5rem;
+    position: relative;
+    background-color: rgba(24, 24, 27, 0.5); /* Dark background for letterboxing */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid #71717a; /* More visible default border */
+    transition: border-color 0.3s ease;
+}
+
+.main-image-container:hover, .thumbnail-image:hover, .thumbnail-video:hover {
+    /* CHANGE: Use the section-specific color for the border */
+    border-color: var(--section-color, var(--color-gold));
+}
+
+/* Dynamic glow effect for borders */
+.main-image-container::after, .thumbnail-image::after, .thumbnail-video::after {
+    content: '';
+    position: absolute;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
+    border-radius: inherit;
+    border: 2px solid transparent;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.main-image-container:hover::after, .thumbnail-image:hover::after, .thumbnail-video:hover::after {
+    opacity: 1;
+    /* CHANGE: Use the section-specific color for the glow animation */
+    animation: breathing-border-glow 2s ease-in-out infinite;
+    --glow-color: var(--section-color, var(--color-gold));
+    border-color: var(--glow-color);
+}
+
+/* FIX: Use object-fit: contain to prevent cropping and remove Ken Burns zoom */
+.gallery-main-image, .gallery-main-video, .thumbnail-image, .thumbnail-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: none !important; /* Disables any zoom effect */
+}
+
+.thumbnail-image, .thumbnail-video {
+    aspect-ratio: 16 / 10;
+    cursor: pointer;
+}
+
+/* ADDITION: Styles for the new CTA section */
+#cta-section .nav-link-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--color-gold);
+}
+
+
+/* Lightbox Styles */
+#lightbox {
+    transition: opacity 0.3s ease;
+}
+
+#lightbox.hidden {
+    display: none;
+}
+
+#lightbox-image {
+    animation: zoomIn 0.3s ease;
+}
+
+#lightbox-close:hover, 
+#lightbox-prev:hover, 
+#lightbox-next:hover {
+    color: var(--color-gold);
+}
+
 /* Keyframe Animations */
 @keyframes hero-reveal-up {
     to {
@@ -433,42 +536,28 @@ main, header, footer {
 }
 
 @keyframes breathing-glow {
-  0% {
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-  }
+  0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
 }
 
 @keyframes scroll {
-    to {
-        transform: translate(calc(-50% - 2rem));
-    }
+    to { transform: translate(calc(-50% - 2rem)); }
 }
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes breathing-border {
-  0% {
-    border-color: var(--color-purple-light);
-  }
-  50% {
-    border-color: var(--color-gold);
-  }
-  100% {
-    border-color: var(--color-purple-light);
-  }
+/* CHANGE: Updated border glow to use CSS variable */
+@keyframes breathing-border-glow {
+  0% { box-shadow: 0 0 5px var(--glow-color), inset 0 0 5px var(--glow-color); }
+  50% { box-shadow: 0 0 20px var(--glow-color), inset 0 0 10px var(--glow-color); }
+  100% { box-shadow: 0 0 5px var(--glow-color), inset 0 0 5px var(--glow-color); }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
