@@ -35,14 +35,14 @@
         }
     </script>
 </head>
-<body class="bg-black text-white font-body">
+<body class="services-page bg-black text-white font-body">
 
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
         <div class="absolute top-[10%] left-[5%] w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-3xl"></div>
         <div class="absolute top-[30%] right-[10%] w-1/4 h-1/4 bg-gold-400/10 rounded-full blur-3xl"></div>
     </div>
     <canvas id="particle-canvas"></canvas>
-    <header id="main-header" class="absolute top-0 left-0 w-full z-50 transition-all duration-300">
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 header-scrolled">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html"><img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto transition-all duration-300"></a>
             <div class="hidden md:flex items-center space-x-8">
@@ -63,27 +63,25 @@
         <a href="contact.html" class="mobile-nav-link-button">Book Now</a>
     </div>
 
-    <main>
-        <section id="services-hero" class="h-[60vh] flex items-center justify-center relative">
-            <div class="absolute inset-0 z-0"><div class="absolute inset-0 bg-black opacity-60"></div><img src="images/Assets/Video_Production.jpg" alt="Creative Studio Setup" class="w-full h-full object-cover"></div>
+    <div id="services-nav" class="bg-black/80 backdrop-blur-lg shadow-lg">
+        <div class="container mx-auto px-6"><div class="flex justify-center items-center space-x-2 md:space-x-6 py-3 overflow-x-auto">
+            <a href="#service-photography" class="nav-link service-nav-link">Photography</a>
+            <a href="#service-video-production" class="nav-link service-nav-link">Video Production</a>
+            <a href="#service-interviews" class="nav-link service-nav-link">Interviews</a>
+            <a href="#service-commercials" class="nav-link service-nav-link">Commercials</a>
+            <a href="#service-web-design" class="nav-link service-nav-link">Web Design</a>
+            <a href="#service-printing" class="nav-link service-nav-link">Printing</a>
+        </div></div>
+    </div>
+
+    <main id="main-content">
+        <section class="h-[50vh] min-h-[300px] flex items-center justify-center relative pt-32">
             <div class="container mx-auto px-6 relative z-10 text-center">
                 <h1 class="font-headline text-5xl md:text-7xl uppercase text-glow animate-on-scroll text-red-500">Our Services</h1>
                 <div class="typewriter-container font-subheadline text-2xl md:text-3xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">
-                    <span id="typewriter-text"></span><span class="cursor"></span>
                 </div>
             </div>
         </section>
-
-        <div id="services-nav" class="bg-black/80 backdrop-blur-lg shadow-lg">
-            <div class="container mx-auto px-6"><div class="flex justify-center items-center space-x-2 md:space-x-6 py-3 overflow-x-auto">
-                <a href="#service-photography" class="nav-link service-nav-link">Photography</a>
-                <a href="#service-video-production" class="nav-link service-nav-link">Video Production</a>
-                <a href="#service-interviews" class="nav-link service-nav-link">Interviews</a>
-                <a href="#service-commercials" class="nav-link service-nav-link">Commercials</a>
-                <a href="#service-web-design" class="nav-link service-nav-link">Web Design</a>
-                <a href="#service-printing" class="nav-link service-nav-link">Printing</a>
-            </div></div>
-        </div>
         
         <div class="container mx-auto px-6">
             <div id="mobile-services-nav">
@@ -98,7 +96,7 @@
             </div>
         </div>
 
-        <div class="py-24 md:py-32 bg-zinc-900/50">
+        <div class="py-24 md:py-32 bg-transparent">
             <div class="container mx-auto px-6 space-y-24 md:space-y-32">
 
                 <section id="service-photography" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Weddings/5.jpeg" alt="Wedding Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Portraits/8.jpeg" alt="Portrait Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Sports/3.jpeg" alt="Sports Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Graduation/1.jpeg" alt="Graduation Photography" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Photography</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">From powerful headshots and timeless portraits to dynamic event coverage and weddings, we capture the moments that matter. Our team ensures every shot is perfect.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Book a Session</a></div></div></section>
@@ -178,13 +176,13 @@
     document.addEventListener('DOMContentLoaded', () => {
         // --- Core Site Selectors ---
         const mainHeader = document.getElementById('main-header');
+        const mainContent = document.getElementById('main-content');
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const backToTopButton = document.getElementById('back-to-top');
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
         
         // --- Services Page Specific Selectors ---
-        const servicesHero = document.getElementById('services-hero');
         const serviceSections = document.querySelectorAll('.service-section');
         const servicesNav = document.getElementById('services-nav');
         const desktopNavLinks = document.querySelectorAll('#services-nav .service-nav-link');
@@ -194,8 +192,7 @@
         const lightboxClose = document.getElementById('lightbox-close');
         const lightboxNext = document.getElementById('lightbox-next');
         const lightboxPrev = document.getElementById('lightbox-prev');
-        const typewriterTextElement = document.getElementById('typewriter-text');
-        const typewriterCursor = typewriterTextElement ? typewriterTextElement.nextElementSibling : null;
+        const typewriterContainer = document.querySelector('.typewriter-container');
 
         let currentLightboxItems = [];
         let currentItemIndex = 0;
@@ -203,7 +200,6 @@
         // Header & Mobile Menu Logic
         if (mainHeader && mobileMenuButton && mobileMenu) {
             const mobileLinks = mobileMenu.querySelectorAll('a');
-            window.addEventListener('scroll', () => mainHeader.classList.toggle('header-scrolled', window.scrollY > 50));
             mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('menu-active'));
             mobileLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -279,17 +275,14 @@
 
         // --- HYBRID NAVIGATION LOGIC ---
         if (serviceSections.length > 0) {
-            const heroHeight = servicesHero ? servicesHero.offsetHeight : 0;
-
             // --- Desktop Fixed Nav ---
-            if (servicesNav && desktopNavLinks.length > 0) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > heroHeight) {
-                        servicesNav.classList.add('nav-visible');
-                    } else {
-                        servicesNav.classList.remove('nav-visible');
-                    }
-                });
+            if (servicesNav && mainHeader && mainContent) {
+                const mainHeaderHeight = mainHeader.offsetHeight;
+                const servicesNavHeight = servicesNav.offsetHeight;
+                const totalNavHeight = mainHeaderHeight + servicesNavHeight;
+
+                servicesNav.style.top = `${mainHeaderHeight}px`;
+                mainContent.style.paddingTop = `${totalNavHeight}px`;
 
                 const sectionObserver = new IntersectionObserver(entries => {
                     entries.forEach(entry => {
@@ -300,7 +293,7 @@
                             });
                         }
                     });
-                }, { rootMargin: `-${servicesNav.offsetHeight}px 0px -70% 0px` });
+                }, { rootMargin: `-${totalNavHeight}px 0px -70% 0px` });
                 
                 serviceSections.forEach(section => sectionObserver.observe(section));
 
@@ -310,7 +303,7 @@
                         const targetId = this.getAttribute('href');
                         const targetSection = document.querySelector(targetId);
                         if (targetSection) {
-                            const offsetTop = targetSection.offsetTop - servicesNav.offsetHeight;
+                            const offsetTop = targetSection.offsetTop - totalNavHeight;
                             window.scrollTo({
                                 top: offsetTop,
                                 behavior: 'smooth'
@@ -333,7 +326,7 @@
                     const targetId = this.value;
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - (mainHeader.classList.contains('header-scrolled') ? mainHeader.offsetHeight : 0) - 20;
+                        const offsetTop = targetSection.offsetTop - (mainHeader ? mainHeader.offsetHeight : 0) - 20;
                         window.scrollTo({
                             top: offsetTop,
                             behavior: 'smooth'
@@ -343,28 +336,17 @@
             }
         }
 
-        // Typewriter Effect
-        if (typewriterTextElement) {
+        // --- FADE-IN TYPING ANIMATION ---
+        if (typewriterContainer) {
             const text = "Crafting visuals that tell your story.";
-            let index = 0;
-            function type() {
-                if (index < text.length) {
-                    typewriterTextElement.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(type, 70);
-                } else {
-                    if(typewriterCursor) typewriterCursor.style.display = 'none';
-                }
-            }
-            const typewriterObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(type, 500);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            typewriterObserver.observe(typewriterTextElement.parentElement);
+            const chars = text.split('').map((char, i) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space
+                span.style.animationDelay = `${i * 0.05}s`;
+                return span;
+            });
+            typewriterContainer.append(...chars);
         }
 
         // --- GALLERY & PAGINATION LOGIC ---
