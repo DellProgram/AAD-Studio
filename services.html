@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400;700&family=Exo+2:wght@800&family=Montserrat:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/services.css">
 
     <script>
         tailwind.config = {
@@ -63,43 +64,71 @@
     </div>
 
     <main>
-        <section class="h-[60vh] flex items-center justify-center relative">
+        <section id="services-hero" class="h-[60vh] flex items-center justify-center relative">
             <div class="absolute inset-0 z-0"><div class="absolute inset-0 bg-black opacity-60"></div><img src="images/Assets/Video_Production.jpg" alt="Creative Studio Setup" class="w-full h-full object-cover"></div>
             <div class="container mx-auto px-6 relative z-10 text-center">
-                <h1 class="font-headline text-5xl md:text-7xl text-white uppercase text-glow animate-on-scroll">Our Services</h1>
-                <p class="font-subheadline text-2xl md:text-3xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">Crafting visuals that tell your story.</p>
+                <h1 class="font-headline text-5xl md:text-7xl uppercase text-glow animate-on-scroll text-red-500">Our Services</h1>
+                <div class="typewriter-container font-subheadline text-2xl md:text-3xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">
+                    <span id="typewriter-text"></span><span class="cursor"></span>
+                </div>
             </div>
         </section>
 
-        <div id="services-nav" class="sticky top-0 z-30 bg-black/80 backdrop-blur-lg shadow-lg">
+        <div id="services-nav" class="bg-black/80 backdrop-blur-lg shadow-lg">
             <div class="container mx-auto px-6"><div class="flex justify-center items-center space-x-2 md:space-x-6 py-3 overflow-x-auto">
                 <a href="#service-photography" class="nav-link service-nav-link">Photography</a>
                 <a href="#service-video-production" class="nav-link service-nav-link">Video Production</a>
+                <a href="#service-interviews" class="nav-link service-nav-link">Interviews</a>
                 <a href="#service-commercials" class="nav-link service-nav-link">Commercials</a>
                 <a href="#service-web-design" class="nav-link service-nav-link">Web Design</a>
                 <a href="#service-printing" class="nav-link service-nav-link">Printing</a>
             </div></div>
         </div>
+        
+        <div class="container mx-auto px-6">
+            <div id="mobile-services-nav">
+                <div class="relative">
+                    <select id="mobile-nav-select" class="mobile-nav-select">
+                        <option value="">Jump to a Service...</option>
+                    </select>
+                    <div class="mobile-nav-arrow">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="py-24 md:py-32 bg-zinc-900/50">
             <div class="container mx-auto px-6 space-y-24 md:space-y-32">
 
-                <section id="service-photography" class="service-section"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"><div class="service-gallery animate-on-scroll"><div class="main-image-container aspect-portrait"><img src="images/Weddings/5.jpeg" alt="Featured Wedding Photography" class="gallery-item gallery-main-image"></div><div class="thumbnail-grid grid grid-cols-2 gap-4 mt-4"><img src="images/Portraits/8.jpeg" alt="Portrait Thumbnail" class="gallery-item thumbnail-image"><img src="images/Sports/3.jpeg" alt="Sports Photography Thumbnail" class="gallery-item thumbnail-image"></div></div><div class="service-description animate-on-scroll" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Photography</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">From powerful headshots and timeless portraits to dynamic event coverage and weddings, we capture the moments that matter. Our team ensures every shot is perfect.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Book a Session</a></div></div></section>
+                <section id="service-photography" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Weddings/5.jpeg" alt="Wedding Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Portraits/8.jpeg" alt="Portrait Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Sports/3.jpeg" alt="Sports Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Graduation/1.jpeg" alt="Graduation Photography" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Photography</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">From powerful headshots and timeless portraits to dynamic event coverage and weddings, we capture the moments that matter. Our team ensures every shot is perfect.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Book a Session</a></div></div></section>
 
-                <section id="service-video-production" class="service-section"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"><div class="service-description animate-on-scroll order-last md:order-first" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Studio Production</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Our state-of-the-art studio is ready for your next project. We handle everything from multi-camera live streaming and podcasts to professional interviews and dynamic event recaps.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Start Your Project</a></div><div class="service-gallery animate-on-scroll order-first md:order-last"><div class="main-image-container aspect-landscape"><img src="images/Events/3.jpeg" alt="Live Event Production" class="gallery-item gallery-main-image"></div><div class="thumbnail-grid grid grid-cols-2 gap-4 mt-4"><img src="images/Concert/Performance/4.jpeg" alt="Performance Capture" class="gallery-item thumbnail-image"><img src="images/Sports/11.jpeg" alt="Sports Broadcasting" class="gallery-item thumbnail-image"></div></div></div></section>
-                
-                <section id="service-commercials" class="service-section"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"><div class="service-gallery animate-on-scroll"><div class="main-image-container aspect-landscape"><video src="videos/Moving_Forward_Healthcare_AD.mp4" class="gallery-item gallery-main-video" controls poster="images/Assets/Video_Production.jpg"></video></div><div class="thumbnail-grid grid grid-cols-2 gap-4 mt-4"><video src="videos/Campaign_Final.mp4" class="gallery-item thumbnail-video" controls poster="images/Portraits/18.jpeg"></video><video src="videos/100_Black_Men_Interview.mp4" class="gallery-item thumbnail-video" controls poster="images/Assets/100_Black_Men.png"></video></div></div><div class="service-description animate-on-scroll" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Company Commercials & Branding</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Elevate your brand with high-impact video commercials and strategic web promotions. We produce compelling visual content designed to captivate your audience and drive results.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Promote Your Brand</a></div></div></section>
+                <hr class="section-divider">
 
-                <section id="service-web-design" class="service-section"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"><div class="service-description animate-on-scroll order-last md:order-first" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Web Design & Social Media</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Establish a powerful online presence with stunning websites and targeted social media ad campaigns that engage your audience and drive business growth.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Build Your Presence</a></div><div class="service-gallery animate-on-scroll order-first md:order-last"><div class="main-image-container aspect-landscape"><img src="images/Assets/Web_Design_Mockup.png" alt="Featured Web Design" class="gallery-item gallery-main-image"></div><div class="thumbnail-grid grid grid-cols-2 gap-4 mt-4"><img src="images/Assets/Social_Media_Ads.png" alt="Social Media Ad Design" class="gallery-item thumbnail-image"><img src="images/Assets/Zeta_Phi_Book_page2.jpg" alt="Content Graphic Design" class="gallery-item thumbnail-image"></div></div></div></section>
+                <section id="service-video-production" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Video Production</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Our state-of-the-art studio is ready for your next project. We handle everything from multi-camera live streaming and podcasts to professional interviews and dynamic event recaps.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Start Your Project</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/100_Black_Men_Interview.mp4" class="gallery-media-large" controls poster="images/Assets/100_Black_Men.png"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Video_Production.jpg" alt="Video Production Studio" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Concert/Performance/4.jpeg" alt="Performance Capture" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
                 
-                <section id="service-printing" class="service-section"><div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"><div class="service-gallery animate-on-scroll"><div class="main-image-container aspect-portrait"><img src="images/Assets/Zeta_Phi_Book_cover.jpg" alt="Custom Book Cover" class="gallery-item gallery-main-image"></div><div class="thumbnail-grid grid grid-cols-2 gap-4 mt-4"><img src="images/Assets/Zeta_Phi_Book_page.jpg" alt="Book Page Spread" class="gallery-item thumbnail-image"><img src="images/Assets/McCurdy.jpg" alt="Personalized Apparel" class="gallery-item thumbnail-image"></div></div><div class="service-description animate-on-scroll" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Custom Print & Personalization</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Bring your ideas to life with high-quality custom printing. From professional hard-cover book production to custom apparel and personalized items, we offer tangible solutions.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Get a Print Quote</a></div></div></section>
+                <hr class="section-divider">
+
+                <section id="service-interviews" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/100_Black_Men_Interview.mp4" class="gallery-media-large" controls poster="images/Assets/100_Black_Men.png"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Campaign_Final.mp4" class="gallery-media-large" controls poster="images/Portraits/18.jpeg"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Events/3.jpeg" alt="Interview setup" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Interviews and Testimonials</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Tell your story and build trust with authentic, high-quality interviews and client testimonials that connect with your audience on a personal level.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Share Your Story</a></div></div></section>
+
+                <hr class="section-divider">
+
+                <section id="service-commercials" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Company Commercials & Branding</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Elevate your brand with high-impact video commercials and strategic web promotions. We produce compelling visual content designed to captivate your audience and drive results.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Promote Your Brand</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Moving_Forward_Healthcare_AD.mp4" class="gallery-media-large" controls poster="images/Assets/Video_Production.jpg"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Campaign_Final.mp4" class="gallery-media-large" controls poster="images/Portraits/18.jpeg"></video></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
+
+                <hr class="section-divider">
+
+                <section id="service-web-design" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Web_Design_Mockup.png" alt="Web Design Mockup" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Social_Media_Ads.png" alt="Social Media Ad Design" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_page2.jpg" alt="Content Graphic Design" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Web Design & Social Media</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Establish a powerful online presence with stunning websites and targeted social media ad campaigns that engage your audience and drive business growth.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Build Your Presence</a></div></div></section>
+                
+                <hr class="section-divider">
+
+                <section id="service-printing" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Custom Print & Personalization</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Bring your ideas to life with high-quality custom printing. From professional hard-cover book production to custom apparel and personalized items, we offer tangible solutions.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Get a Print Quote</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_cover.jpg" alt="Custom Book Cover" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_page.jpg" alt="Book Page Spread" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/McCurdy.jpg" alt="Personalized Apparel" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
             </div>
         </div>
 
-        <section id="cta-section" class="py-24 bg-zinc-900">
+        <section id="services-cta">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="font-headline text-4xl md:text-5xl text-white uppercase text-glow animate-on-scroll">Like What You See?</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-zinc-300 animate-on-scroll" style="--delay: 0.1s;">Let's discuss your project. We offer a free, no-obligation consultation to help bring your vision to life.</p>
+                <h2 class="font-headline text-4xl md:text-5xl uppercase text-glow animate-on-scroll text-gold-400">Ready to Bring Your Vision to Life?</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-zinc-300 animate-on-scroll cta-description" style="--delay: 0.1s;">Let's discuss your project. We offer a free, no-obligation consultation to help bring your vision to life.</p>
                 <a href="contact.html" class="nav-link-button mt-8 text-xl px-10 py-4 animate-on-scroll" style="--delay: 0.2s;">Book a Free Consultation</a>
             </div>
         </section>
@@ -155,14 +184,19 @@
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
         
         // --- Services Page Specific Selectors ---
+        const servicesHero = document.getElementById('services-hero');
         const serviceSections = document.querySelectorAll('.service-section');
-        const navLinks = document.querySelectorAll('.service-nav-link');
-        const galleries = document.querySelectorAll('.service-gallery');
+        const servicesNav = document.getElementById('services-nav');
+        const desktopNavLinks = document.querySelectorAll('#services-nav .service-nav-link');
+        const mobileNavSelect = document.getElementById('mobile-nav-select');
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
         const lightboxClose = document.getElementById('lightbox-close');
         const lightboxNext = document.getElementById('lightbox-next');
         const lightboxPrev = document.getElementById('lightbox-prev');
+        const typewriterTextElement = document.getElementById('typewriter-text');
+        const typewriterCursor = typewriterTextElement ? typewriterTextElement.nextElementSibling : null;
+
         let currentLightboxItems = [];
         let currentItemIndex = 0;
 
@@ -243,64 +277,171 @@
             backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         }
 
-        // Active Navigation Link on Scroll
-        if (serviceSections.length && navLinks.length) {
-            const sectionObserver = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const sectionId = entry.target.id;
-                        navLinks.forEach(link => {
-                            link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
+        // --- HYBRID NAVIGATION LOGIC ---
+        if (serviceSections.length > 0) {
+            const heroHeight = servicesHero ? servicesHero.offsetHeight : 0;
+
+            // --- Desktop Fixed Nav ---
+            if (servicesNav && desktopNavLinks.length > 0) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > heroHeight) {
+                        servicesNav.classList.add('nav-visible');
+                    } else {
+                        servicesNav.classList.remove('nav-visible');
+                    }
+                });
+
+                const sectionObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const sectionId = entry.target.id;
+                            desktopNavLinks.forEach(link => {
+                                link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
+                            });
+                        }
+                    });
+                }, { rootMargin: `-${servicesNav.offsetHeight}px 0px -70% 0px` });
+                
+                serviceSections.forEach(section => sectionObserver.observe(section));
+
+                desktopNavLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            const offsetTop = targetSection.offsetTop - servicesNav.offsetHeight;
+                            window.scrollTo({
+                                top: offsetTop,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+
+            // --- Mobile Dropdown Nav ---
+            if (mobileNavSelect) {
+                serviceSections.forEach(section => {
+                    const option = document.createElement('option');
+                    option.value = `#${section.id}`;
+                    option.textContent = section.querySelector('h2').textContent;
+                    mobileNavSelect.appendChild(option);
+                });
+
+                mobileNavSelect.addEventListener('change', function() {
+                    const targetId = this.value;
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - (mainHeader.classList.contains('header-scrolled') ? mainHeader.offsetHeight : 0) - 20;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
                         });
                     }
                 });
-            }, { rootMargin: '-40% 0px -60% 0px' });
-            serviceSections.forEach(section => sectionObserver.observe(section));
+            }
         }
 
-        // --- REBUILT & FIXED: Gallery and Lightbox Logic ---
-        galleries.forEach(gallery => {
-            gallery.addEventListener('click', function(e) {
-                const mainMediaElement = gallery.querySelector('.gallery-main-image, .gallery-main-video');
-                const clickedElement = e.target;
-
-                // If a thumbnail was clicked, perform a swap.
-                if (clickedElement.classList.contains('thumbnail-image') || clickedElement.classList.contains('thumbnail-video')) {
-                    const tempSrc = mainMediaElement.src;
-                    const tempPoster = mainMediaElement.poster;
-
-                    mainMediaElement.src = clickedElement.src;
-                    if (mainMediaElement.tagName === 'VIDEO') {
-                        mainMediaElement.poster = clickedElement.poster;
-                    }
-                    
-                    clickedElement.src = tempSrc;
-                    if (clickedElement.tagName === 'VIDEO') {
-                        clickedElement.poster = tempPoster;
-                    }
+        // Typewriter Effect
+        if (typewriterTextElement) {
+            const text = "Crafting visuals that tell your story.";
+            let index = 0;
+            function type() {
+                if (index < text.length) {
+                    typewriterTextElement.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 70);
+                } else {
+                    if(typewriterCursor) typewriterCursor.style.display = 'none';
                 }
-                
-                // If the main image was clicked, open the lightbox.
-                // This will not trigger for videos.
-                else if (clickedElement.classList.contains('gallery-main-image')) {
-                    const allImages = gallery.querySelectorAll('.gallery-item');
-                    currentLightboxItems = Array.from(allImages)
-                        .filter(item => item.tagName === 'IMG') // Only include images in lightbox
-                        .map(img => img.src);
+            }
+            const typewriterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(type, 500);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            typewriterObserver.observe(typewriterTextElement.parentElement);
+        }
+
+        // --- GALLERY & PAGINATION LOGIC ---
+        const galleries = document.querySelectorAll('.service-gallery-wrapper');
+        galleries.forEach(gallery => {
+            const content = gallery.querySelector('.gallery-content');
+            const prevBtn = gallery.querySelector('.prev-arrow');
+            const nextBtn = gallery.querySelector('.next-arrow');
+            const paginationContainer = gallery.querySelector('.gallery-pagination');
+            const items = content.querySelectorAll('.gallery-card-container');
+
+            if (items.length <= 1) {
+                if(prevBtn) prevBtn.style.display = 'none';
+                if(nextBtn) nextBtn.style.display = 'none';
+                return;
+            }
+
+            items.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.classList.add('pagination-dot');
+                if (i === 0) dot.classList.add('active');
+                paginationContainer.appendChild(dot);
+            });
+            const dots = paginationContainer.querySelectorAll('.pagination-dot');
+
+            const updatePagination = () => {
+                const scrollLeft = content.scrollLeft;
+                const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(content).gap);
+                const currentIndex = Math.round(scrollLeft / itemWidth);
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            };
+
+            content.addEventListener('scroll', updatePagination);
+            
+            if (prevBtn && nextBtn && content) {
+                prevBtn.addEventListener('click', () => {
+                    content.scrollBy({ left: -content.clientWidth, behavior: 'smooth' });
+                });
+                nextBtn.addEventListener('click', () => {
+                    content.scrollBy({ left: content.clientWidth, behavior: 'smooth' });
+                });
+            }
+        });
+
+
+        // --- LIGHTBOX LOGIC ---
+        const allGalleryMedia = document.querySelectorAll('.gallery-media-large');
+        allGalleryMedia.forEach(media => {
+             if (media.tagName === 'IMG') {
+                media.addEventListener('click', () => {
+                    const galleryWrapper = media.closest('.service-gallery-wrapper');
+                    const allImagesInGallery = galleryWrapper.querySelectorAll('.gallery-media-large[src$=".jpeg"], .gallery-media-large[src$=".jpg"], .gallery-media-large[src$=".png"]');
                     
-                    currentItemIndex = currentLightboxItems.indexOf(clickedElement.src);
-                    
+                    currentLightboxItems = Array.from(allImagesInGallery).map(img => img.src);
+                    currentItemIndex = currentLightboxItems.indexOf(media.src);
+
                     if (currentItemIndex > -1) {
                         openLightbox();
                     }
-                }
-            });
+                });
+            }
         });
 
         function openLightbox() {
             if (lightbox && currentLightboxItems.length) {
                 lightboxImage.src = currentLightboxItems[currentItemIndex];
                 lightbox.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeLightbox() {
+            if (lightbox) {
+                lightbox.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         }
 
@@ -315,19 +456,19 @@
         }
 
         if (lightbox) {
-            lightboxClose.addEventListener('click', () => lightbox.classList.add('hidden'));
+            lightboxClose.addEventListener('click', closeLightbox);
             lightboxNext.addEventListener('click', showNextImage);
             lightboxPrev.addEventListener('click', showPrevImage);
             lightbox.addEventListener('click', e => {
                 if (e.target === lightbox) {
-                    lightbox.classList.add('hidden');
+                    closeLightbox();
                 }
             });
             document.addEventListener('keydown', e => {
                 if (!lightbox.classList.contains('hidden')) {
                     if (e.key === 'ArrowRight') showNextImage();
                     if (e.key === 'ArrowLeft') showPrevImage();
-                    if (e.key === 'Escape') lightbox.classList.add('hidden');
+                    if (e.key === 'Escape') closeLightbox();
                 }
             });
         }
