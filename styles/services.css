@@ -5,14 +5,14 @@
 #service-video-production { --section-color: #EF4444; } /* Red */
 #service-interviews       { --section-color: #D4AF37; } /* Gold */
 #service-commercials      { --section-color: #1E40AF; } /* Dark Blue */
-#service-web-design       { --section-color: #1E40AF; } /* CORRECTED: Dark Blue */
-#service-printing         { --section-color: #EF4444; } /* CORRECTED: Red */
+#service-web-design       { --section-color: #1E40AF; } /* Dark Blue */
+#service-printing         { --section-color: #EF4444; } /* Red */
 
-/* NEW: Body background and overlay */
+/* Body background and overlay */
 body.services-page {
     background-image: url('../images/Sports/15.jpeg');
     background-size: cover;
-    background-position: center 80%; /* Lowered the image */
+    background-position: center 70; /* CORRECTED: Nudged down for perfect framing */
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -24,7 +24,7 @@ body.services-page::before {
     z-index: -1;
 }
 
-/* NEW: Section background gradients */
+/* Section background gradients */
 .service-section {
     position: relative;
     overflow: hidden;
@@ -32,17 +32,15 @@ body.services-page::before {
 .service-section::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    padding-bottom: 150%;
-    background: radial-gradient(circle, var(--section-color) 0%, transparent 60%);
-    opacity: 0.1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, var(--section-color) 0%, transparent 70%);
+    opacity: 0.15;
     z-index: -1;
     pointer-events: none;
 }
-
 
 /* Ensures all service titles are their solid theme color */
 .service-section .service-description h2 {
@@ -52,14 +50,19 @@ body.services-page::before {
     background-clip: unset !important;
 }
 
-/* --- DESKTOP: FIXED NAVIGATION BAR --- */
+/* --- DESKTOP: "SMART" FIXED NAVIGATION BAR --- */
+#main-header, #services-nav {
+    transition: top 0.4s ease-in-out;
+}
+#main-header.header-hidden, #services-nav.header-hidden {
+    top: -200px; /* Hides the headers off-screen */
+}
 #services-nav {
-    display: none; /* Hidden by default, shown on desktop via JS */
+    display: none;
     position: fixed;
-    top: 0; /* Position is handled by JS */
     left: 0;
     width: 100%;
-    z-index: 45;
+    z-index: 49; /* Just below main header */
 }
 .service-nav-link.active {
     color: var(--color-gold);
@@ -75,7 +78,7 @@ body.services-page::before {
 
 /* --- MOBILE: DROPDOWN NAVIGATION --- */
 #mobile-services-nav {
-    display: block; /* Show by default, hidden on desktop */
+    display: block;
     margin: 2rem auto 0;
     position: relative;
 }
@@ -110,11 +113,11 @@ body.services-page::before {
 /* --- CLEAN GALLERY STYLES --- */
 .service-gallery-wrapper {
     position: relative;
-    padding: 0 4rem; /* Space for arrows */
+    padding: 0 4rem;
 }
 .gallery-content {
     display: flex;
-    gap: 1.5rem; /* 24px */
+    gap: 1.5rem;
     overflow-x: auto;
     scroll-behavior: smooth;
     scrollbar-width: none;
@@ -128,7 +131,7 @@ body.services-page::before {
     flex: 0 0 100%;
     scroll-snap-align: center;
     border-radius: 0.5rem;
-    overflow: hidden; /* Important for containing the zoom effect */
+    overflow: hidden;
     border: 2px solid var(--section-color);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
@@ -140,10 +143,9 @@ body.services-page::before {
 .gallery-media-large {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* CRITICAL: Fills container, crops nicely */
+    object-fit: cover;
     transition: transform 0.4s ease;
 }
-/* New subtle hover effect */
 .gallery-card-container:hover .gallery-media-large {
     transform: scale(1.05);
 }
@@ -198,6 +200,23 @@ body.services-page::before {
     margin: 3rem 0;
 }
 
+/* --- FOOTER GRADIENT --- */
+footer {
+    position: relative;
+}
+footer::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, transparent);
+    pointer-events: none;
+    z-index: -1;
+}
+
+
 /* --- REDESIGNED CTA --- */
 #services-cta {
     background: transparent;
@@ -232,9 +251,9 @@ body.services-page::before {
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 }
 
-
+/* --- FADE-IN TYPEWRITER --- */
 .typewriter-container .char {
-    display: inline-block; 
+    display: inline-block;
     opacity: 0;
     transform: translateY(15px);
     animation: fadeInChar 0.5s ease-out forwards;
