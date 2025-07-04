@@ -12,7 +12,7 @@
 body.services-page {
     background-image: url('../images/Sports/15.jpeg');
     background-size: cover;
-    background-position: center center;
+    background-position: center 80%; /* Lowered the image */
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
@@ -22,6 +22,25 @@ body.services-page::before {
     inset: 0;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: -1;
+}
+
+/* NEW: Section background gradients */
+.service-section {
+    position: relative;
+    overflow: hidden;
+}
+.service-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    padding-bottom: 150%;
+    background: radial-gradient(circle, var(--section-color) 0%, transparent 60%);
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
 }
 
 
@@ -35,12 +54,12 @@ body.services-page::before {
 
 /* --- DESKTOP: FIXED NAVIGATION BAR --- */
 #services-nav {
-    display: none; /* Hidden by default, shown on desktop */
+    display: none; /* Hidden by default, shown on desktop via JS */
     position: fixed;
+    top: 0; /* Position is handled by JS */
     left: 0;
     width: 100%;
     z-index: 45;
-    transition: top 0.3s ease-in-out;
 }
 .service-nav-link.active {
     color: var(--color-gold);
@@ -213,15 +232,17 @@ body.services-page::before {
     50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
 }
 
-/* --- TYPEWRITER --- */
-.typewriter-container .cursor {
-    display: inline-block;
-    background-color: var(--color-gold);
-    margin-left: 0.1rem;
-    width: 3px;
-    animation: blink 1s infinite;
+
+.typewriter-container .char {
+    display: inline-block; 
+    opacity: 0;
+    transform: translateY(15px);
+    animation: fadeInChar 0.5s ease-out forwards;
 }
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+@keyframes fadeInChar {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
