@@ -1,0 +1,214 @@
+/* --- SERVICES PAGE: THEME & TITLES --- */
+
+/* Defines a theme color variable for each section using the correct company palette */
+#service-photography      { --section-color: #8B5CF6; } /* Purple */
+#service-video-production { --section-color: #EF4444; } /* Red */
+#service-interviews       { --section-color: #D4AF37; } /* Gold */
+#service-commercials      { --section-color: #1E40AF; } /* Dark Blue */
+#service-web-design       { --section-color: #1E40AF; } /* CORRECTED: Dark Blue */
+#service-printing         { --section-color: #EF4444; } /* CORRECTED: Red */
+
+/* Ensures all service titles are their solid theme color */
+.service-section .service-description h2 {
+    color: var(--section-color) !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+}
+
+/* --- DESKTOP: FIXED NAVIGATION BAR --- */
+#services-nav {
+    display: none; /* Hidden by default, shown on desktop via JS */
+    position: fixed;
+    top: -100px; /* Start off-screen */
+    left: 0;
+    width: 100%;
+    z-index: 45;
+    transition: top 0.4s ease-in-out;
+}
+#services-nav.nav-visible {
+    top: 0; /* Slides into view */
+}
+.service-nav-link.active {
+    color: var(--color-gold);
+}
+.service-nav-link.active::after {
+    width: 80%;
+}
+@media (min-width: 1024px) {
+    #services-nav {
+        display: block;
+    }
+}
+
+/* --- MOBILE: DROPDOWN NAVIGATION --- */
+#mobile-services-nav {
+    display: block; /* Show by default, hidden on desktop */
+    margin: 2rem auto 0;
+    position: relative;
+}
+.mobile-nav-select {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: rgba(24, 24, 27, 0.8);
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 0.5rem;
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 1.125rem;
+    text-align: center;
+    cursor: pointer;
+}
+.mobile-nav-arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gold);
+    pointer-events: none;
+}
+@media (min-width: 1024px) {
+    #mobile-services-nav {
+        display: none;
+    }
+}
+
+/* --- CLEAN GALLERY STYLES --- */
+.service-gallery-wrapper {
+    position: relative;
+    padding: 0 4rem; /* Space for arrows */
+}
+.gallery-content {
+    display: flex;
+    gap: 1.5rem; /* 24px */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    padding: 1rem;
+}
+.gallery-content::-webkit-scrollbar {
+    display: none;
+}
+.gallery-card-container {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    border-radius: 0.5rem;
+    overflow: hidden; /* Important for containing the zoom effect */
+    border: 2px solid var(--section-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.gallery-card-large {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+.gallery-media-large {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* CRITICAL: Fills container, crops nicely */
+    transition: transform 0.4s ease;
+}
+/* New subtle hover effect */
+.gallery-card-container:hover .gallery-media-large {
+    transform: scale(1.05);
+}
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+    border: 1px solid var(--color-zinc-500);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gallery-arrow:hover {
+    background-color: var(--color-gold);
+    border-color: var(--color-gold);
+    transform: translateY(-50%) scale(1.1);
+}
+.prev-arrow { left: 0; }
+.next-arrow { right: 0; }
+.gallery-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+.pagination-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-zinc-500);
+    transition: all 0.3s ease;
+}
+.pagination-dot.active {
+    background-color: var(--section-color);
+    transform: scale(1.3);
+}
+
+/* --- SECTION DIVIDER --- */
+.section-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.4), transparent);
+    margin: 3rem 0;
+}
+
+/* --- REDESIGNED CTA --- */
+#services-cta {
+    background: transparent;
+    position: relative;
+    padding: 6rem 1.5rem;
+    overflow: hidden;
+}
+#services-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    z-index: 0;
+    animation: pulse-glow 5s ease-in-out infinite;
+}
+#services-cta .container {
+    position: relative;
+    z-index: 1;
+}
+#services-cta .cta-description {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    opacity: 0.9;
+}
+@keyframes pulse-glow {
+    0%, 100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* --- TYPEWRITER --- */
+.typewriter-container .cursor {
+    display: inline-block;
+    background-color: var(--color-gold);
+    margin-left: 0.1rem;
+    width: 3px;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
