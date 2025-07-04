@@ -8,6 +8,23 @@
 #service-web-design       { --section-color: #1E40AF; } /* CORRECTED: Dark Blue */
 #service-printing         { --section-color: #EF4444; } /* CORRECTED: Red */
 
+/* NEW: Body background and overlay */
+body.services-page {
+    background-image: url('../images/Sports/15.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+body.services-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+
 /* Ensures all service titles are their solid theme color */
 .service-section .service-description h2 {
     color: var(--section-color) !important;
@@ -18,16 +35,12 @@
 
 /* --- DESKTOP: FIXED NAVIGATION BAR --- */
 #services-nav {
-    display: none; /* Hidden by default, shown on desktop via JS */
+    display: none; /* Hidden by default, shown on desktop */
     position: fixed;
-    top: -100px; /* Start off-screen */
     left: 0;
     width: 100%;
     z-index: 45;
-    transition: top 0.4s ease-in-out;
-}
-#services-nav.nav-visible {
-    top: 0; /* Slides into view */
+    transition: top 0.3s ease-in-out;
 }
 .service-nav-link.active {
     color: var(--color-gold);
