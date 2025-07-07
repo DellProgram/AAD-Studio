@@ -8,10 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400;700&family=Exo+2:wght@800&family=Montserrat:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/services.css">
-
     <script>
         tailwind.config = {
             theme: {
@@ -29,117 +26,210 @@
                         'dark-blue': { '500': '#1E40AF' },
                         'blue': { '400': '#60A5FA', '800': '#1E40AF' }
                     },
-                    aspectRatio: { 'portrait': '4 / 5', 'landscape': '16 / 9' }
+                    aspectRatio: {
+                        'portrait': '4 / 5',
+                    },
                 }
             }
         }
     </script>
+    <style>
+        /* --- FONT OVERRIDE --- */
+        :root { --font-headline: 'Cinzel', serif; --font-body: 'Cinzel', serif; }
+        .nav-link { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        .nav-link-button, .mobile-nav-link-button, .nav-link-button-secondary { font-family: 'Russo One', sans-serif; }
+        
+        /* --- MOBILE MENU ANIMATION --- */
+        #mobile-menu { opacity: 0; transform: translateX(2rem); transition: opacity 0.3s ease-out, transform 0.3s ease-out; pointer-events: none; }
+        #mobile-menu.menu-active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+
+        /* --- NEW STYLES FOR SERVICES PAGE --- */
+        /* Hero Image Positioning */
+        #hero-bg-image { object-position: center 50%; }
+
+        /* Sticky Service Navigation Bar */
+        #services-nav { position: sticky; top: 0; z-index: 45; background-color: rgba(0,0,0,0.8); backdrop-filter: blur(10px); transition: top 0.3s ease-in-out; }
+        .service-nav-link { padding: 1rem 1.5rem; color: #d4d4d8; font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.875rem; position: relative; white-space: nowrap; }
+        .service-nav-link::after { content: ''; position: absolute; bottom: 0.75rem; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background-color: var(--color-gold); transition: width 0.3s ease-out; }
+        .service-nav-link:hover::after, .service-nav-link.active::after { width: 50%; }
+        .service-nav-link.active { color: var(--color-gold); }
+
+        /* Service Section Card Layout */
+        .service-section { scroll-margin-top: 80px; }
+        .service-card { background: linear-gradient(180deg, rgba(24, 24, 27, 0.5) 0%, rgba(24, 24, 27, 0.7) 100%); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 2rem; border-radius: 0.75rem; }
+        @media (min-width: 768px) { .service-card { padding: 3rem; } }
+        
+        /* Media Container with Colored Border/Hover */
+        .media-container { border-radius: 0.5rem; overflow: hidden; position: relative; border: 2px solid var(--section-color, 'rgba(255, 255, 255, 0.5)'); opacity: 0.85; transition: all 0.4s ease; background-color: #000; }
+        .media-container:hover { opacity: 1; transform: scale(1.03); box-shadow: 0 0 25px -5px var(--section-color, '#D4AF37'); }
+        
+        /* Media Sizing */
+        .media-landscape { aspect-ratio: 16 / 9; }
+        .media-container img, .media-container video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Typewriter Animation */
+        #typewriter .char { display: inline-block; opacity: 0; transform: translateY(20px); animation: fadeInChar 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+        @keyframes fadeInChar { to { opacity: 1; transform: translateY(0); } }
+
+        /* Footer Gradient & Glow */
+        footer { position: relative; overflow: hidden; }
+        footer::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 300px; background: linear-gradient(to top, rgba(0,0,0,0.8) 20%, transparent); pointer-events: none; z-index: 0; }
+        footer::after { content: ''; position: absolute; bottom: -150px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 800px; height: 300px; background: linear-gradient(to top, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 70%); border-radius: 50%; filter: blur(60px); z-index: -1; }
+        .footer-content { position: relative; z-index: 1; }
+
+        /* Lightbox (Fullscreen Media) */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        #lightbox.active { opacity: 1; visibility: visible; }
+        #lightbox-content { position: relative; width: 90%; height: 90%; max-width: 1600px; }
+        #lightbox-content img, #lightbox-content video { width: 100%; height: 100%; object-fit: contain; }
+        #lightbox-close { position: absolute; top: 1rem; right: 1rem; color: white; font-size: 3rem; font-weight: bold; cursor: pointer; line-height: 1; }
+    </style>
 </head>
-<body class="services-page bg-black text-white font-body">
+<body class="bg-black text-white font-body">
 
     <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
         <div class="absolute top-[10%] left-[5%] w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-3xl"></div>
         <div class="absolute top-[30%] right-[10%] w-1/4 h-1/4 bg-gold-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[20%] left-[15%] w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-3xl"></div>
     </div>
     <canvas id="particle-canvas"></canvas>
-    <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 header-scrolled">
+
+    <header id="main-header" class="absolute top-0 left-0 w-full z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html"><img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto transition-all duration-300"></a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="services.html" class="nav-link">Services</a>
-                <a href="portfolio.html" class="nav-link">Portfolio</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="contact.html" class="nav-link-button">Book Now</a>
+                <a href="services.html" class="nav-link">Services</a><a href="portfolio.html" class="nav-link">Portfolio</a><a href="about.html" class="nav-link">About</a><a href="contact.html" class="nav-link-button">Book Now</a>
             </div>
             <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
     </header>
+
     <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 p-8 flex flex-col justify-center items-center">
-        <a href="services.html" class="mobile-nav-link">Services</a>
-        <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
-        <a href="about.html" class="mobile-nav-link">About</a>
-        <a href="contact.html" class="mobile-nav-link-button">Book Now</a>
+        <a href="services.html" class="mobile-nav-link">Services</a><a href="portfolio.html" class="mobile-nav-link">Portfolio</a><a href="about.html" class="mobile-nav-link">About</a><a href="contact.html" class="mobile-nav-link-button">Book Now</a>
     </div>
 
-    <div id="services-nav" class="bg-black/80 backdrop-blur-lg shadow-lg">
-        <div class="container mx-auto px-6"><div class="flex justify-center items-center space-x-2 md:space-x-6 py-3 overflow-x-auto">
-            <a href="#service-photography" class="nav-link service-nav-link">Photography</a>
-            <a href="#service-video-production" class="nav-link service-nav-link">Video Production</a>
-            <a href="#service-interviews" class="nav-link service-nav-link">Interviews</a>
-            <a href="#service-commercials" class="nav-link service-nav-link">Commercials</a>
-            <a href="#service-web-design" class="nav-link service-nav-link">Web Design</a>
-            <a href="#service-printing" class="nav-link service-nav-link">Printing</a>
-        </div></div>
-    </div>
-
-    <main id="main-content">
-        <section class="h-[50vh] min-h-[300px] flex items-center justify-center relative pt-32">
+    <main>
+        <section id="hero" class="h-screen flex items-center justify-center relative">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-black opacity-40"></div>
+                <img src="images/Sports/15.jpeg" alt="Creative Studio Space" id="hero-bg-image" class="w-full h-full object-cover">
+            </div>
+            <div class="hero-particle-overlay"><canvas id="hero-particle-canvas"></canvas></div>
             <div class="container mx-auto px-6 relative z-10 text-center">
-                <h1 class="font-headline text-5xl md:text-7xl uppercase text-glow animate-on-scroll text-red-500">Our Services</h1>
-                <div class="typewriter-container font-subheadline text-2xl md:text-3xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">
+                <h1 class="font-headline text-5xl md:text-8xl text-red-500 uppercase text-glow leading-tight"><span class="hero-text-animate block">Our Services</span></h1>
+                <p id="typewriter" class="font-subheadline text-2xl md:text-4xl text-gold-400 mt-8 hero-text-animate">Crafting visuals that tell your story.</p>
+            </div>
+        </section>
+
+        <nav id="services-nav" class="border-b border-zinc-800">
+            <div class="container mx-auto flex justify-center items-center overflow-x-auto">
+                <a href="#service-photography" class="service-nav-link">Photography</a><a href="#service-video-production" class="service-nav-link">Video & Streaming</a><a href="#service-commercials" class="service-nav-link">Commercials</a><a href="#service-interviews" class="service-nav-link">Interviews</a><a href="#service-web-design" class="service-nav-link">Web & Social</a><a href="#service-printing" class="service-nav-link">Printing</a>
+            </div>
+        </nav>
+
+        <div class="py-24 md:py-32">
+            <div class="container mx-auto px-6 space-y-16">
+
+                <section id="service-photography" class="service-section" style="--section-color: #8B5CF6;">
+                    <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-purple-400">Photography</h2>
+                            <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">From powerful headshots and timeless portraits to dynamic event coverage and weddings, we capture the moments that matter with artistic flair and technical precision.</p>
+                            <a href="contact.html?service=Photography" class="nav-link-button mt-8">Capture Your Moment</a>
+                        </div>
+                        <div class="media-container cursor-pointer" data-type="image" data-src="images/Portraits/8.jpeg">
+                            <img src="images/Portraits/8.jpeg" alt="Photography Example">
+                        </div>
+                    </div></div>
+                </section>
+                
+                <section id="service-video-production" class="service-section" style="--section-color: #EF4444;">
+                    <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="lg:order-last">
+                             <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-red-500">Video Production, Podcast & Live Streaming</h2>
+                             <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">Our state-of-the-art studio is ready for your next project, from multi-camera live streams and professional podcasts to cinematic short films.</p>
+                             <a href="contact.html?service=Video-Production" class="nav-link-button mt-8">Bring Your Story to Life</a>
+                        </div>
+                        <div class="media-container media-landscape cursor-pointer" data-type="image" data-src="images/Assets/Video_Production.jpg">
+                            <img src="images/Assets/Video_Production.jpg" alt="Video Production Example">
+                        </div>
+                    </div></div>
+                </section>
+
+                <section id="service-commercials" class="service-section" style="--section-color: #60A5FA;">
+                    <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                             <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-blue-400">Company Commercials & Branding</h2>
+                             <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">Elevate your brand with high-impact video commercials and strategic web promotions designed to captivate your audience and drive results.</p>
+                             <a href="contact.html?service=Commercials" class="nav-link-button mt-8">Define Your Brand</a>
+                        </div>
+                        <div class="media-container media-landscape cursor-pointer" data-type="video" data-src="videos/Moving_Forward_Healthcare_AD.mp4">
+                             <video src="videos/Moving_Forward_Healthcare_AD.mp4" class="pointer-events-none" loop muted playsinline poster="images/Assets/Company_Commercials.png"></video>
+                        </div>
+                    </div></div>
+                </section>
+
+                <section id="service-interviews" class="service-section" style="--section-color: #D4AF37;">
+                    <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="lg:order-last">
+                             <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-gold-400">Interviews and Testimonials</h2>
+                             <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">Tell your story and build trust with authentic, high-quality interviews and client testimonials that connect with your audience on a personal level.</p>
+                             <a href="contact.html?service=Interviews" class="nav-link-button mt-8">Share Your Story</a>
+                        </div>
+                        <div class="media-container media-landscape cursor-pointer" data-type="video" data-src="videos/100_Black_Men_Interview.mp4">
+                             <video src="videos/100_Black_Men_Interview.mp4" class="pointer-events-none" loop muted playsinline poster="images/Assets/Interviews_Testimonies.jpg"></video>
+                        </div>
+                    </div></div>
+                </section>
+
+                <section id="service-web-design" class="service-section" style="--section-color: #1E40AF;">
+                     <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                             <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-dark-blue-500">Web Design & Social Media</h2>
+                             <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">Establish a powerful online presence with stunning websites and targeted social media ad campaigns that are designed to drive business growth.</p>
+                             <a href="contact.html?service=Web-Design" class="nav-link-button mt-8">Build Your Presence</a>
+                        </div>
+                        <div class="media-container media-landscape cursor-pointer" data-type="image" data-src="images/Assets/Social_Media_Ads.png">
+                            <img src="images/Assets/Social_Media_Ads.png" alt="Web Design Example">
+                        </div>
+                    </div></div>
+                </section>
+
+                <section id="service-printing" class="service-section" style="--section-color: #EF4444;">
+                    <div class="service-card"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="lg:order-last">
+                             <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-red-500">Custom Print & Personalization</h2>
+                             <p class="mt-4 text-zinc-300 max-w-xl text-lg leading-relaxed">From professional hard-cover book production to custom apparel and personalized items, we offer tangible, high-quality printing solutions.</p>
+                             <a href="contact.html?service=Printing" class="nav-link-button mt-8">Make It Tangible</a>
+                        </div>
+                        <div class="media-container cursor-pointer" data-type="image" data-src="images/Assets/Zeta_Phi_Book_cover.jpg">
+                            <img src="images/Assets/Zeta_Phi_Book_cover.jpg" alt="Printing Services Example">
+                        </div>
+                    </div></div>
+                </section>
+
+            </div>
+        </div>
+
+        <section id="services-cta" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-cinzel text-4xl md:text-5xl font-bold uppercase text-dark-blue-500 animate-on-scroll">Ready to bring your vision to life?</h2>
+                <p class="font-subheadline text-2xl md:text-4xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">Let's create something unforgettable together.</p>
+                <div class="mt-12 animate-on-scroll" style="--delay: 0.4s;">
+                     <a href="contact.html" class="nav-link-button text-xl md:text-2xl px-12 py-5">Get Your Free Quote</a>
                 </div>
             </div>
         </section>
         
-        <div class="container mx-auto px-6">
-            <div id="mobile-services-nav">
-                <div class="relative">
-                    <select id="mobile-nav-select" class="mobile-nav-select">
-                        <option value="">Jump to a Service...</option>
-                    </select>
-                    <div class="mobile-nav-arrow">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="py-24 md:py-32 bg-transparent">
-            <div class="container mx-auto px-6 space-y-24 md:space-y-32">
-
-                <section id="service-photography" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Weddings/5.jpeg" alt="Wedding Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Portraits/8.jpeg" alt="Portrait Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Sports/3.jpeg" alt="Sports Photography" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Graduation/1.jpeg" alt="Graduation Photography" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Photography</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">From powerful headshots and timeless portraits to dynamic event coverage and weddings, we capture the moments that matter. Our team ensures every shot is perfect.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Book a Session</a></div></div></section>
-
-                <hr class="section-divider">
-
-                <section id="service-video-production" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Video Production</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Our state-of-the-art studio is ready for your next project. We handle everything from multi-camera live streaming and podcasts to professional interviews and dynamic event recaps.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Start Your Project</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/100_Black_Men_Interview.mp4" class="gallery-media-large" controls poster="images/Assets/100_Black_Men.png"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Video_Production.jpg" alt="Video Production Studio" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Concert/Performance/4.jpeg" alt="Performance Capture" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
-                
-                <hr class="section-divider">
-
-                <section id="service-interviews" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/100_Black_Men_Interview.mp4" class="gallery-media-large" controls poster="images/Assets/100_Black_Men.png"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Campaign_Final.mp4" class="gallery-media-large" controls poster="images/Portraits/18.jpeg"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Events/3.jpeg" alt="Interview setup" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Interviews and Testimonials</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Tell your story and build trust with authentic, high-quality interviews and client testimonials that connect with your audience on a personal level.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Share Your Story</a></div></div></section>
-
-                <hr class="section-divider">
-
-                <section id="service-commercials" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Company Commercials & Branding</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Elevate your brand with high-impact video commercials and strategic web promotions. We produce compelling visual content designed to captivate your audience and drive results.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Promote Your Brand</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Moving_Forward_Healthcare_AD.mp4" class="gallery-media-large" controls poster="images/Assets/Video_Production.jpg"></video></div></div><div class="gallery-card-container"><div class="gallery-card-large"><video src="videos/Campaign_Final.mp4" class="gallery-media-large" controls poster="images/Portraits/18.jpeg"></video></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
-
-                <hr class="section-divider">
-
-                <section id="service-web-design" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Web_Design_Mockup.png" alt="Web Design Mockup" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Social_Media_Ads.png" alt="Social Media Ad Design" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_page2.jpg" alt="Content Graphic Design" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div><div class="lg:col-span-2 service-description animate-on-scroll text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Web Design & Social Media</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Establish a powerful online presence with stunning websites and targeted social media ad campaigns that engage your audience and drive business growth.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Build Your Presence</a></div></div></section>
-                
-                <hr class="section-divider">
-
-                <section id="service-printing" class="service-section"><div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center"><div class="lg:col-span-2 service-description animate-on-scroll order-last lg:order-first text-center lg:text-left" style="--delay: 0.2s;"><h2 class="font-cinzel text-3xl md:text-4xl font-bold">Custom Print & Personalization</h2><p class="mt-4 text-lg text-zinc-300 leading-relaxed">Bring your ideas to life with high-quality custom printing. From professional hard-cover book production to custom apparel and personalized items, we offer tangible solutions.</p><a href="contact.html" class="nav-link-button-secondary mt-8 inline-block">Get a Print Quote</a></div><div class="lg:col-span-3 service-gallery-wrapper animate-on-scroll order-first lg:order-last"><button class="gallery-arrow prev-arrow">❮</button><div class="gallery-content"><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_cover.jpg" alt="Custom Book Cover" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/Zeta_Phi_Book_page.jpg" alt="Book Page Spread" class="gallery-media-large"></div></div><div class="gallery-card-container"><div class="gallery-card-large"><img src="images/Assets/McCurdy.jpg" alt="Personalized Apparel" class="gallery-media-large"></div></div></div><button class="gallery-arrow next-arrow">❯</button><div class="gallery-pagination"></div></div></div></section>
-            </div>
-        </div>
-
-        <section id="services-cta">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="font-headline text-4xl md:text-5xl uppercase text-glow animate-on-scroll text-gold-400">Ready to Bring Your Vision to Life?</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-lg text-zinc-300 animate-on-scroll cta-description" style="--delay: 0.1s;">Let's discuss your project. We offer a free, no-obligation consultation to help bring your vision to life.</p>
-                <a href="contact.html" class="nav-link-button mt-8 text-xl px-10 py-4 animate-on-scroll" style="--delay: 0.2s;">Book a Free Consultation</a>
-            </div>
-        </section>
     </main>
 
     <footer class="py-20 bg-transparent">
-        <div class="container mx-auto px-6 text-center">
+        <div class="container mx-auto px-6 text-center footer-content">
             <img src="images/Assets/AAD_Logo.png" class="h-16 w-auto mx-auto mb-6 opacity-75">
             <div class="mt-8 flex justify-center space-x-6">
-                <a href="services.html" class="nav-link">Services</a>
-                <a href="portfolio.html" class="nav-link">Portfolio</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="services.html" class="nav-link">Services</a><a href="portfolio.html" class="nav-link">Portfolio</a><a href="about.html" class="nav-link">About</a><a href="contact.html" class="nav-link">Contact</a>
             </div>
             <div class="mt-8 pt-8 border-t border-gold-400 max-w-lg mx-auto">
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-6 text-zinc-400">
@@ -152,7 +242,7 @@
                         <span>407-607-2000</span>
                     </a>
                 </div>
-                 <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd,+Casselberry,+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
+                 <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
                     <span>332 Wilshire Blvd, Casselberry, FL 32707</span>
                 </a>
@@ -161,11 +251,9 @@
         </div>
     </footer>
     
-    <div id="lightbox" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
-        <button id="lightbox-close" class="absolute top-4 right-6 text-white text-5xl font-bold">×</button>
-        <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl p-2 rounded-full bg-black/30 hover:bg-black/50">❮</button>
-        <img id="lightbox-image" src="" alt="Expanded Service Image" class="max-w-[90vw] max-h-[85vh] object-contain">
-        <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl p-2 rounded-full bg-black/30 hover:bg-black/50">❯</button>
+    <div id="lightbox">
+        <div id="lightbox-content"></div>
+        <span id="lightbox-close">×</span>
     </div>
 
     <button id="back-to-top" title="Back to Top">
@@ -174,286 +262,57 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- Core Site Selectors ---
-        const mainHeader = document.getElementById('main-header');
-        const mainContent = document.getElementById('main-content');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const backToTopButton = document.getElementById('back-to-top');
+        // --- SELECTORS ---
+        const backToTopButton = document.getElementById('back-to-top'), mainHeader = document.getElementById('main-header'), mobileMenuButton = document.getElementById('mobile-menu-button'), mobileMenu = document.getElementById('mobile-menu'), serviceSections = document.querySelectorAll('.service-section'), navLinks = document.querySelectorAll('.service-nav-link'), typewriterElement = document.getElementById('typewriter'), lightbox = document.getElementById('lightbox'), lightboxContent = document.getElementById('lightbox-content'), lightboxClose = document.getElementById('lightbox-close'), mediaItems = document.querySelectorAll('.media-container');
+
+        // --- CORE FUNCTIONALITY ---
+        if (mainHeader) { window.addEventListener('scroll', () => { mainHeader.classList.toggle('header-scrolled', window.scrollY > 50); }); }
+        if (mobileMenuButton) { mobileMenuButton.addEventListener('click', () => { mobileMenu.classList.toggle('menu-active'); }); }
+        if (backToTopButton) { window.addEventListener('scroll', () => { backToTopButton.classList.toggle('show', window.scrollY > 400); }); backToTopButton.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); }); }
+        
         const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
+        if (elementsToAnimate.length > 0) { const animationObserver = new IntersectionObserver((entries, o) => { entries.forEach(e => { if (e.isIntersecting) { e.target.style.transitionDelay = e.target.style.getPropertyValue('--delay') || '0s'; e.target.classList.add('is-visible'); o.unobserve(e.target); } }); }, { threshold: 0.1 }); elementsToAnimate.forEach(el => animationObserver.observe(el)); }
         
-        // --- Services Page Specific Selectors ---
-        const serviceSections = document.querySelectorAll('.service-section');
-        const servicesNav = document.getElementById('services-nav');
-        const desktopNavLinks = document.querySelectorAll('#services-nav .service-nav-link');
-        const mobileNavSelect = document.getElementById('mobile-nav-select');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImage = document.getElementById('lightbox-image');
-        const lightboxClose = document.getElementById('lightbox-close');
-        const lightboxNext = document.getElementById('lightbox-next');
-        const lightboxPrev = document.getElementById('lightbox-prev');
-        const typewriterContainer = document.querySelector('.typewriter-container');
+        const setupParticleCanvas = (id, divisor) => { const canvas = document.getElementById(id); if (!canvas) return; const ctx = canvas.getContext('2d'); let particles; const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; init(); }; class Particle { constructor(x,y,dx,dy,s,c){this.x=x;this.y=y;this.directionX=dx;this.directionY=dy;this.size=s;this.color=c;} draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2,false);ctx.fillStyle=this.color;ctx.fill();} update(){if(this.x>canvas.width||this.x<0)this.directionX=-this.directionX;if(this.y>canvas.height||this.y<0)this.directionY=-this.directionY;this.x+=this.directionX;this.y+=this.directionY;this.draw();}} const init = () => { particles=[];let num=(canvas.height*canvas.width)/divisor;for(let i=0;i<num;i++){let s=(Math.random()*2)+1,x=(Math.random()*(canvas.width-s*2))+s*2,y=(Math.random()*(canvas.height-s*2))+s*2,dx=(Math.random()*0.4)-0.2,dy=(Math.random()*0.4)-0.2,c=i%2===0?'rgba(167,139,250,0.3)':'rgba(212,175,55,0.3)';particles.push(new Particle(x,y,dx,dy,s,c));}}; const animate = () => { if(particles){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>p.update());} requestAnimationFrame(animate);}; window.addEventListener('resize',resize);resize();animate(); };
+        setupParticleCanvas('particle-canvas', 12000);
+        setupParticleCanvas('hero-particle-canvas', 9000);
 
-        let currentLightboxItems = [];
-        let currentItemIndex = 0;
+        // --- SERVICES PAGE SPECIFIC SCRIPT ---
+        if (typewriterElement) { const text = typewriterElement.textContent; typewriterElement.innerHTML = ''; text.split('').forEach((char, index) => { const span = document.createElement('span'); span.className = 'char'; span.textContent = char === ' ' ? '\u00A0' : char; span.style.animationDelay = `${index * 0.05}s`; typewriterElement.appendChild(span); }); }
 
-        // Header & Mobile Menu Logic
-        if (mainHeader && mobileMenuButton && mobileMenu) {
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('menu-active'));
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    if (href && href !== '#') {
-                        e.preventDefault();
-                        mobileMenu.classList.remove('menu-active');
-                        setTimeout(() => { window.location.href = href; }, 300);
-                    }
-                });
-            });
-        }
-        
-        // Scroll-based Animations
-        if (elementsToAnimate.length) {
-            const animationObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.transitionDelay = entry.target.style.getPropertyValue('--delay') || '0s';
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            elementsToAnimate.forEach(el => animationObserver.observe(el));
-        }
-        
-        // Particle Animation
-        const setupParticleCanvas = (canvasId, particleDivisor) => {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            let particlesArray;
-            const resizeCanvas = () => {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                initParticles();
+        if (serviceSections.length > 0) { const observer = new IntersectionObserver(entries => { entries.forEach(entry => { if (entry.isIntersecting) { const id = entry.target.getAttribute('id'); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === `#${id}`) { link.classList.add('active'); } }); } }); }, { rootMargin: '-30% 0px -40% 0px' }); serviceSections.forEach(section => observer.observe(section)); }
+
+        // Lightbox functionality
+        const openLightbox = (type, src) => {
+            lightboxContent.innerHTML = ''; // Clear previous content
+            if (type === 'image') {
+                const img = document.createElement('img');
+                img.src = src;
+                lightboxContent.appendChild(img);
+            } else if (type === 'video') {
+                const video = document.createElement('video');
+                video.src = src;
+                video.controls = true;
+                video.volume = 0.5;
+                lightboxContent.appendChild(video);
+                video.play();
             }
-            class Particle {
-                constructor(x, y, dX, dY, s, c) { this.x=x; this.y=y; this.directionX=dX; this.directionY=dY; this.size=s; this.color=c; }
-                draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2,false); ctx.fillStyle=this.color; ctx.fill(); }
-                update() {
-                    if(this.x>canvas.width||this.x<0){this.directionX=-this.directionX;}
-                    if(this.y>canvas.height||this.y<0){this.directionY=-this.directionY;}
-                    this.x+=this.directionX; this.y+=this.directionY; this.draw();
-                }
-            }
-            const initParticles = () => {
-                particlesArray = [];
-                let num = (canvas.height*canvas.width)/particleDivisor;
-                for (let i=0; i<num; i++) {
-                    let size=(Math.random()*2)+1, x=(Math.random()*(canvas.width-size*2))+size*2, y=(Math.random()*(canvas.height-size*2))+size*2;
-                    let dX=(Math.random()*0.4)-0.2, dY=(Math.random()*0.4)-0.2;
-                    let color=i%2===0?'rgba(167,139,250,0.3)':'rgba(212,175,55,0.3)';
-                    particlesArray.push(new Particle(x,y,dX,dY,size,color));
-                }
-            };
-            const animateParticles = () => {
-                if(particlesArray) { ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>p.update()); }
-                requestAnimationFrame(animateParticles);
-            };
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-            animateParticles();
+            lightbox.classList.add('active');
         };
-        setupParticleCanvas('particle-canvas', 15000);
-
-        // Back to Top Button
-        if (backToTopButton) {
-            window.addEventListener('scroll', () => backToTopButton.classList.toggle('show', window.scrollY > 400));
-            backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-        }
-
-        // --- HYBRID NAVIGATION LOGIC ---
-        if (serviceSections.length > 0) {
-            // --- Desktop Fixed Nav ---
-            if (servicesNav && mainHeader && mainContent) {
-                const mainHeaderHeight = mainHeader.offsetHeight;
-                const servicesNavHeight = servicesNav.offsetHeight;
-                const totalNavHeight = mainHeaderHeight + servicesNavHeight;
-
-                servicesNav.style.top = `${mainHeaderHeight}px`;
-                mainContent.style.paddingTop = `${totalNavHeight}px`;
-
-                const sectionObserver = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const sectionId = entry.target.id;
-                            desktopNavLinks.forEach(link => {
-                                link.classList.toggle('active', link.getAttribute('href') === `#${sectionId}`);
-                            });
-                        }
-                    });
-                }, { rootMargin: `-${totalNavHeight}px 0px -70% 0px` });
-                
-                serviceSections.forEach(section => sectionObserver.observe(section));
-
-                desktopNavLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const targetSection = document.querySelector(targetId);
-                        if (targetSection) {
-                            const offsetTop = targetSection.offsetTop - totalNavHeight;
-                            window.scrollTo({
-                                top: offsetTop,
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-            }
-
-            // --- Mobile Dropdown Nav ---
-            if (mobileNavSelect) {
-                serviceSections.forEach(section => {
-                    const option = document.createElement('option');
-                    option.value = `#${section.id}`;
-                    option.textContent = section.querySelector('h2').textContent;
-                    mobileNavSelect.appendChild(option);
-                });
-
-                mobileNavSelect.addEventListener('change', function() {
-                    const targetId = this.value;
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        const offsetTop = targetSection.offsetTop - (mainHeader ? mainHeader.offsetHeight : 0) - 20;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            }
-        }
-
-        // --- FADE-IN TYPING ANIMATION ---
-        if (typewriterContainer) {
-            const text = "Crafting visuals that tell your story.";
-            const chars = text.split('').map((char, i) => {
-                const span = document.createElement('span');
-                span.className = 'char';
-                span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space
-                span.style.animationDelay = `${i * 0.05}s`;
-                return span;
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            lightboxContent.innerHTML = ''; // Stop video playback
+        };
+        mediaItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const type = item.dataset.type;
+                const src = item.dataset.src;
+                openLightbox(type, src);
             });
-            typewriterContainer.append(...chars);
-        }
-
-        // --- GALLERY & PAGINATION LOGIC ---
-        const galleries = document.querySelectorAll('.service-gallery-wrapper');
-        galleries.forEach(gallery => {
-            const content = gallery.querySelector('.gallery-content');
-            const prevBtn = gallery.querySelector('.prev-arrow');
-            const nextBtn = gallery.querySelector('.next-arrow');
-            const paginationContainer = gallery.querySelector('.gallery-pagination');
-            const items = content.querySelectorAll('.gallery-card-container');
-
-            if (items.length <= 1) {
-                if(prevBtn) prevBtn.style.display = 'none';
-                if(nextBtn) nextBtn.style.display = 'none';
-                return;
-            }
-
-            items.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.classList.add('pagination-dot');
-                if (i === 0) dot.classList.add('active');
-                paginationContainer.appendChild(dot);
-            });
-            const dots = paginationContainer.querySelectorAll('.pagination-dot');
-
-            const updatePagination = () => {
-                const scrollLeft = content.scrollLeft;
-                const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(content).gap);
-                const currentIndex = Math.round(scrollLeft / itemWidth);
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentIndex);
-                });
-            };
-
-            content.addEventListener('scroll', updatePagination);
-            
-            if (prevBtn && nextBtn && content) {
-                prevBtn.addEventListener('click', () => {
-                    content.scrollBy({ left: -content.clientWidth, behavior: 'smooth' });
-                });
-                nextBtn.addEventListener('click', () => {
-                    content.scrollBy({ left: content.clientWidth, behavior: 'smooth' });
-                });
-            }
         });
-
-
-        // --- LIGHTBOX LOGIC ---
-        const allGalleryMedia = document.querySelectorAll('.gallery-media-large');
-        allGalleryMedia.forEach(media => {
-             if (media.tagName === 'IMG') {
-                media.addEventListener('click', () => {
-                    const galleryWrapper = media.closest('.service-gallery-wrapper');
-                    const allImagesInGallery = galleryWrapper.querySelectorAll('.gallery-media-large[src$=".jpeg"], .gallery-media-large[src$=".jpg"], .gallery-media-large[src$=".png"]');
-                    
-                    currentLightboxItems = Array.from(allImagesInGallery).map(img => img.src);
-                    currentItemIndex = currentLightboxItems.indexOf(media.src);
-
-                    if (currentItemIndex > -1) {
-                        openLightbox();
-                    }
-                });
-            }
-        });
-
-        function openLightbox() {
-            if (lightbox && currentLightboxItems.length) {
-                lightboxImage.src = currentLightboxItems[currentItemIndex];
-                lightbox.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-        
-        function closeLightbox() {
-            if (lightbox) {
-                lightbox.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        }
-
-        function showNextImage() {
-            currentItemIndex = (currentItemIndex + 1) % currentLightboxItems.length;
-            lightboxImage.src = currentLightboxItems[currentItemIndex];
-        }
-
-        function showPrevImage() {
-            currentItemIndex = (currentItemIndex - 1 + currentLightboxItems.length) % currentLightboxItems.length;
-            lightboxImage.src = currentLightboxItems[currentItemIndex];
-        }
-
-        if (lightbox) {
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightboxNext.addEventListener('click', showNextImage);
-            lightboxPrev.addEventListener('click', showPrevImage);
-            lightbox.addEventListener('click', e => {
-                if (e.target === lightbox) {
-                    closeLightbox();
-                }
-            });
-            document.addEventListener('keydown', e => {
-                if (!lightbox.classList.contains('hidden')) {
-                    if (e.key === 'ArrowRight') showNextImage();
-                    if (e.key === 'ArrowLeft') showPrevImage();
-                    if (e.key === 'Escape') closeLightbox();
-                }
-            });
-        }
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
     });
     </script>
 </body>
