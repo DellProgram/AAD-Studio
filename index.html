@@ -15,7 +15,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'headline': ['Cinzel', 'serif'],
+                        'headline': ['cinzel', 'serif'],
                         'subheadline': ['Dancing Script', 'cursive'],
                         'body': ['Montserrat', 'sans-serif'],
                         'cinzel': ['Cinzel', 'serif']
@@ -194,10 +194,10 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <header id="main-header" class="absolute top-0 left-0 w-full z-50 transition-all duration-300">
+    <header id="main-header" class="absolute top-0 left-0 w-full z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html">
-                <img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto transition-all duration-300">
+                <img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto">
             </a>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="services.html" class="nav-link">Services</a>
@@ -231,7 +231,7 @@
             <div class="container mx-auto px-6 relative z-10 text-center">
                 <h1 class="font-headline text-5xl md:text-8xl text-white uppercase text-glow leading-tight">
                     <span class="hero-text-animate block">Above All Dreams</span>
-                    <span class="hero-text-animate block text-3xl md:text-6xl text-red-500">Media Productions</span>
+                    <span class="hero-text-animate block text-3xl md:text-6xl text-red-500">Productions</span>
                 </h1>
                 <p class="font-subheadline text-2xl md:text-4xl text-gold-400 mt-4 animated-text-container hero-text-animate"></p>
                 <p class="hero-text-animate mt-8 text-lg md:text-xl tracking-widest font-semibold">
@@ -446,11 +446,6 @@
         if (mainHeader && mobileMenuButton && mobileMenu) {
             const mobileLinks = mobileMenu.querySelectorAll('a');
             
-            // Handle header scroll style
-            window.addEventListener('scroll', () => {
-                mainHeader.classList.toggle('header-scrolled', window.scrollY > 50);
-            });
-
             // Toggle mobile menu with animation
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('menu-active');
