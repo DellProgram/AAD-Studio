@@ -54,7 +54,7 @@
         .carousel-container { position: relative; overflow: hidden; border-radius: 0.5rem; border: 2px solid transparent; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
         .carousel-container:hover { border-color: var(--section-color, 'rgba(255, 255, 255, 0.5)'); box-shadow: 0 0 25px -5px var(--section-color, '#D4AF37'); }
         .carousel-inner-container { overflow: hidden; border-radius: 0.375rem; transition: height 0.4s ease-in-out; }
-        .carousel-track { display: flex; transition: transform 0.4s ease-in-out; }
+        .carousel-track { display: flex; transition: transform 0.4s ease-in-out; touch-action: pan-y; }
         .carousel-slide { flex: 0 0 100%; width: 100%; position: relative; background-color: #000; }
         .carousel-slide img { width: 100%; height: auto; display: block; cursor: pointer; }
         .carousel-slide video { width: 100%; height: auto; display: block; cursor: default; }
@@ -80,9 +80,17 @@
         .footer-content { position: relative; z-index: 1; }
         #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
         #lightbox.active { opacity: 1; visibility: visible; }
-        #lightbox-content { position: relative; width: 90%; height: 90%; max-width: 1600px; }
-        #lightbox-content img, #lightbox-content video { width: 100%; height: 100%; object-fit: contain; }
-        #lightbox-close { position: absolute; top: 1rem; right: 1rem; color: white; font-size: 3rem; font-weight: bold; cursor: pointer; line-height: 1; }
+        #lightbox-content { position: relative; width: 100%; height: 100%; overflow: hidden; }
+        #lightbox-track { display: flex; height: 100%; transition: transform 0.4s ease-in-out; }
+        .lightbox-slide { flex: 0 0 100%; width: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+        .lightbox-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        #lightbox-close { position: absolute; top: 1rem; right: 1rem; color: white; font-size: 3rem; font-weight: bold; cursor: pointer; line-height: 1; z-index: 1002; }
+        .lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(0,0,0,0.5); color: white; border: none; font-size: 3rem; cursor: pointer; padding: 0 1.5rem; z-index: 1001; }
+        .lightbox-arrow:hover { background-color: rgba(0,0,0,0.8); }
+        @media (max-width: 767px) { .lightbox-arrow { display: none; } }
+        #lightbox-prev { left: 1rem; }
+        #lightbox-next { right: 1rem; }
+        #lightbox.has-nav .lightbox-arrow { display: block; }
     </style>
 </head>
 <body class="bg-black text-white font-body">
@@ -404,8 +412,12 @@
     </footer>
     
     <div id="lightbox">
-        <div id="lightbox-content"></div>
+        <div id="lightbox-content">
+             <div id="lightbox-track"></div>
+        </div>
         <span id="lightbox-close">×</span>
+        <button id="lightbox-prev" class="lightbox-arrow">&lt;</button>
+        <button id="lightbox-next" class="lightbox-arrow">&gt;</button>
     </div>
 
     <button id="back-to-top" title="Back to Top">
@@ -421,7 +433,10 @@
               typewriterElement = document.getElementById('typewriter'),
               lightbox = document.getElementById('lightbox'),
               lightboxContent = document.getElementById('lightbox-content'),
+              lightboxTrack = document.getElementById('lightbox-track'),
               lightboxClose = document.getElementById('lightbox-close'),
+              lightboxPrev = document.getElementById('lightbox-prev'),
+              lightboxNext = document.getElementById('lightbox-next'),
               mobileNavTrigger = document.getElementById('mobile-services-trigger'),
               mobileNavMenu = document.getElementById('mobile-services-menu'),
               mobileNavTitle = document.getElementById('mobile-services-title'),
@@ -523,11 +538,6 @@
             };
 
             const moveToSlide = (targetIndex) => {
-                slides.forEach(slide => {
-                    const video = slide.querySelector('video');
-                    if (video) video.pause();
-                });
-
                 if (targetIndex < 0) targetIndex = slides.length - 1;
                 if (targetIndex >= slides.length) targetIndex = 0;
 
@@ -540,13 +550,32 @@
             if(nextButton) nextButton.addEventListener('click', () => moveToSlide(currentIndex + 1));
             if(prevButton) prevButton.addEventListener('click', () => moveToSlide(currentIndex - 1));
             
-            let touchstartX = 0;
-            track.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; }, { passive: true });
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let isSwiping = false;
+
+            track.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isSwiping = false;
+            }, { passive: true });
+
+            track.addEventListener('touchmove', e => {
+                if (isSwiping) return;
+                const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+                const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+                if (deltaX > deltaY && deltaX > 10) {
+                    isSwiping = true;
+                    e.preventDefault(); 
+                }
+            }, { passive: false });
+            
             track.addEventListener('touchend', e => {
-                const touchendX = e.changedTouches[0].screenX;
-                if (touchendX < touchstartX - 50) moveToSlide(currentIndex + 1);
-                if (touchendX > touchstartX + 50) moveToSlide(currentIndex - 1);
-            }, { passive: true }); 
+                if (!isSwiping) return;
+                const touchEndX = e.changedTouches[0].clientX;
+                if (touchEndX < touchStartX - 50) moveToSlide(currentIndex + 1);
+                if (touchEndX > touchStartX + 50) moveToSlide(currentIndex - 1);
+            }, { passive: true });
             
             if (swipeHint && window.innerWidth < 768) {
                 const hintId = `swipeHintShown_${carouselWrapper.closest('.service-section').id}`;
@@ -579,40 +608,90 @@
                 }
             });
         });
+        
+        let lightboxGallery = [];
+        let lightboxIndex = 0;
 
         document.body.addEventListener('click', function(e) {
             if (e.target.matches('.carousel-slide img')) {
-                const type = e.target.dataset.type;
-                const src = e.target.dataset.src;
-                openLightbox(type, src);
+                const clickedSlide = e.target.closest('.carousel-slide');
+                const track = clickedSlide.closest('.carousel-track');
+                const allSlides = Array.from(track.children);
+                const imageSlides = allSlides.filter(s => s.querySelector('img'));
+                
+                lightboxGallery = imageSlides.map(s => s.querySelector('img').src);
+                const clickedSrc = e.target.src;
+                lightboxIndex = lightboxGallery.findIndex(src => src === clickedSrc);
+
+                openLightbox();
             }
         });
-
-        const openLightbox = (type, src) => {
-            lightboxContent.innerHTML = '';
-            if (type === 'image') {
+        
+        function buildLightbox() {
+            lightboxTrack.innerHTML = '';
+            lightboxGallery.forEach(src => {
+                const slide = document.createElement('div');
+                slide.className = 'lightbox-slide';
                 const img = document.createElement('img');
                 img.src = src;
-                lightboxContent.appendChild(img);
-            } else if (type === 'video') {
-                const video = document.createElement('video');
-                video.src = src;
-                video.controls = true;
-                video.autoplay = true;
-                video.volume = 0.5;
-                lightboxContent.appendChild(video);
+                slide.appendChild(img);
+                lightboxTrack.appendChild(slide);
+            });
+            moveToLightboxSlide(lightboxIndex, true);
+        }
+
+        function moveToLightboxSlide(index, instant = false) {
+            if (instant) {
+                lightboxTrack.style.transition = 'none';
+            } else {
+                lightboxTrack.style.transition = 'transform 0.4s ease-in-out';
             }
+            lightboxTrack.style.transform = `translateX(-${index * 100}%)`;
+            lightboxIndex = index;
+        }
+
+        function openLightbox() {
+            buildLightbox();
             lightbox.classList.add('active');
-        };
+            lightbox.classList.toggle('has-nav', lightboxGallery.length > 1);
+            document.addEventListener('keydown', handleKeydown);
+        }
 
-        const closeLightbox = () => {
-            lightboxContent.innerHTML = '';
+        function closeLightbox() {
             lightbox.classList.remove('active');
-        };
+            document.removeEventListener('keydown', handleKeydown);
+        }
 
+        function showNextImage() {
+            if (lightboxIndex < lightboxGallery.length - 1) {
+                moveToLightboxSlide(lightboxIndex + 1);
+            }
+        }
+
+        function showPrevImage() {
+            if (lightboxIndex > 0) {
+                moveToLightboxSlide(lightboxIndex - 1);
+            }
+        }
+
+        function handleKeydown(e) {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNextImage();
+            if (e.key === 'ArrowLeft') showPrevImage();
+        }
+
+        lightboxPrev.addEventListener('click', showPrevImage);
+        lightboxNext.addEventListener('click', showNextImage);
         lightboxClose.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        let lightboxTouchStartX = 0;
+        lightboxContent.addEventListener('touchstart', e => { lightboxTouchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        lightboxContent.addEventListener('touchend', e => {
+            const touchendX = e.changedTouches[0].screenX;
+            if (touchendX < lightboxTouchStartX - 50) showNextImage();
+            if (touchendX > lightboxTouchStartX + 50) showPrevImage();
+        }, { passive: true });
     });
     </script>
 </body>
