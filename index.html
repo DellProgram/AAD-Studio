@@ -13,6 +13,33 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- This script was added to define custom colors and styles for Tailwind CSS -->
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'headline': ['cinzel', 'serif'],
+                        'subheadline': ['Dancing Script', 'cursive'],
+                        'body': ['Montserrat', 'sans-serif'],
+                        'cinzel': ['Cinzel', 'serif']
+                    },
+                    colors: {
+                        'gold': { '400': '#D4AF37' },
+                        'purple': { '400': '#8B5CF6', '500': '#A78BFA' },
+                        'red': { '500': '#EF4444' },
+                        'dark-blue': { '500': '#1E40AF' },
+                        'blue': { '400': '#60A5FA', '800': '#1E40AF' }
+                    },
+                    aspectRatio: {
+                        'portrait': '4 / 5',
+                    },
+                }
+            }
+        }
+    </script>
+    
     <style>
         /* --- Font Overrides --- */
         /* Defines the primary headline and body fonts for this page */
@@ -143,9 +170,7 @@
         <div class="absolute top-[15%] right-[30%] w-[20%] h-[20%] bg-purple-500/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-[35%] left-[30%] w-[35%] h-[35%] bg-gold-400/10 rounded-full blur-3xl"></div>
     </div>
-
     <canvas id="particle-canvas"></canvas>
-
     <header id="main-header" class="absolute top-0 left-0 w-full z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html">
@@ -162,14 +187,12 @@
             </button>
         </nav>
     </header>
-
     <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 p-8 flex flex-col justify-center items-center">
         <a href="services.html" class="mobile-nav-link">Services</a>
         <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
         <a href="about.html" class="mobile-nav-link">About</a>
         <a href="contact.html" class="mobile-nav-link-button">Book Now</a>
     </div>
-
     <main>
         <section id="hero" class="h-screen flex items-center justify-center relative">
             <div class="absolute inset-0 z-0">
@@ -199,7 +222,6 @@
                 </div>
             </div>
         </section>
-
         <section id="services" class="py-24 md:py-32 overflow-hidden">
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8 animate-on-scroll">
@@ -286,7 +308,6 @@
                 <div id="services-accordion"></div>
             </div>
         </section>
-        
         <section id="featured-work" class="py-24 md:py-32">
             <div class="container mx-auto px-6 relative z-10">
                  <div class="text-center mb-16 animate-on-scroll">
@@ -302,7 +323,6 @@
                 </div>
             </div>
         </section>
-
         <section id="sponsors" class="py-24 md:py-32">
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-16 animate-on-scroll">
@@ -333,8 +353,7 @@
                 </div>
             </div>
         </section>
-    </main>
-
+        </main>
     <footer class="py-20 bg-transparent">
         <div class="container mx-auto px-6 text-center">
             <img src="images/Assets/AAD_Logo.png" class="h-16 w-auto mx-auto mb-6 opacity-75">
@@ -356,7 +375,7 @@
                         <span>407-607-2000</span>
                     </a>
                 </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
+                 <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
                     <span>332 Wilshire Blvd, Casselberry, FL 32707</span>
                 </a>
@@ -364,13 +383,11 @@
             <p class="mt-8 text-sm text-zinc-500">© 2025 Above All Dreams Studio. All Rights Reserved.</p>
         </div>
     </footer>
-    
     <button id="back-to-top" title="Back to Top">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
         </svg>
     </button>
-
     <script>
     // This script runs after the entire HTML document has been loaded.
     document.addEventListener('DOMContentLoaded', () => {
