@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Above All Dreams Studio</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/Assets/AAD_Logo.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400;700&family=Exo+2:wght@800&family=Montserrat:wght@400;600;700&family=Russo+One&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- This script was added to define custom colors and styles for Tailwind CSS -->
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'headline': ['cinzel', 'serif'],
+                        'subheadline': ['Dancing Script', 'cursive'],
+                        'body': ['Montserrat', 'sans-serif'],
+                        'cinzel': ['Cinzel', 'serif']
+                    },
+                    colors: {
+                        'gold': { '400': '#D4AF37' },
+                        'purple': { '400': '#8B5CF6', '500': '#A78BFA' },
+                        'red': { '500': '#EF4444' },
+                        'dark-blue': { '500': '#1E40AF' },
+                        'blue': { '400': '#60A5FA', '800': '#1E40AF' }
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- Font Overrides --- */
+        :root {
+            --font-headline: 'Cinzel', serif; 
+            --font-body: 'Cinzel', serif;     
+        }
+        .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        .nav-link-button, .mobile-nav-link-button, .nav-link-button-secondary {
+            font-family: 'Russo One', sans-serif;
+        }
+
+        /* --- Mobile Menu Animation --- */
+        #mobile-menu {
+            opacity: 0;
+            transform: translateX(2rem);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            pointer-events: none;
+        }
+        #mobile-menu.menu-active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        /* --- Hero Section & Typewriter Effect --- */
+        #hero-bg-image { 
+            object-position: center 40%; 
+        }
+        .text-glow-red { 
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.5), 0 0 8px rgba(239, 68, 68, 0.7); 
+        }
+        #typewriter .char { 
+            display: inline-block; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            animation: fadeInChar 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+        }
+        @keyframes fadeInChar { 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white font-body">
+
+    <!-- Background decorative elements -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-[10%] left-[5%] w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-[30%] right-[10%] w-1/4 h-1/4 bg-gold-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-[20%] left-[15%] w-1/2 h-1/2 bg-purple-500/10 rounded-full blur-3xl"></div>
+    </div>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header -->
+    <header id="main-header" class="absolute top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html">
+                <img src="images/Assets/3D_AAD_Logo.png" alt="Above All Dreams Logo" id="header-logo" class="h-12 md:h-16 w-auto">
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link-button">Book Now</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 p-8 flex flex-col justify-center items-center">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="mobile-nav-link">Services</a>
+        <a href="portfolio.html" class="mobile-nav-link">Portfolio</a>
+        <a href="about.html" class="mobile-nav-link">About</a>
+        <a href="contact.html" class="mobile-nav-link-button">Book Now</a>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="h-screen flex items-center justify-center relative">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-black opacity-50"></div>
+                <img src="images/Wedding/15.jpeg" alt="Creative team working" id="hero-bg-image" class="w-full h-full object-cover">
+            </div>
+            <div class="hero-particle-overlay"><canvas id="hero-particle-canvas"></canvas></div>
+            
+            <div class="container mx-auto px-6 relative z-10 text-center">
+                <h1 class="font-headline text-5xl md:text-8xl text-red-500 uppercase text-glow-red leading-tight">
+                    <span class="hero-text-animate block">Our Story</span>
+                </h1>
+                <p id="typewriter" class="font-subheadline text-2xl md:text-4xl text-gold-400 mt-4 hero-text-animate">Vision, Passion, and Excellence Since 2006.</p>
+            </div>
+        </section>
+
+        <!-- About Content Section -->
+        <section id="about-content" class="py-24 md:py-32 bg-zinc-900/50">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+
+                    <!-- Logo/Image Column -->
+                    <div class="lg:col-span-2 animate-on-scroll flex justify-center">
+                        <img src="images/Assets/3D_AAD_Logo_Red.png" alt="Above All Dreams Red Logo" class="max-w-xs w-full">
+                    </div>
+
+                    <!-- Text Content Column -->
+                    <div class="lg:col-span-3 text-left">
+                        <div class="animate-on-scroll" style="--delay: 0.1s;">
+                            <h2 class="font-cinzel text-3xl md:text-4xl font-bold uppercase text-gold-400">The Visionary Behind the Lens</h2>
+                            <p class="mt-6 text-lg text-zinc-300 leading-relaxed">
+                                Above All Dreams was founded in 2006 by Benard Cohen II, a visionary with a passion for capturing moments and telling stories. With nearly two decades of experience, Benard has cultivated a studio that stands for creativity, professionalism, and an unwavering commitment to quality.
+                            </p>
+                        </div>
+
+                        <div class="mt-12 animate-on-scroll" style="--delay: 0.2s;">
+                            <h3 class="font-cinzel text-2xl md:text-3xl font-bold uppercase text-purple-400">A Legacy of Diverse Projects</h3>
+                            <p class="mt-4 text-lg text-zinc-300 leading-relaxed">
+                                Our portfolio is a testament to our versatility and expertise. We have had the privilege of working on a vast array of projects, from managing websites for businesses of all sizes to creating compelling visual content for esteemed organizations like Jones High School and Zeta Alpha Psi. Each project is a partnership, where we work tirelessly to bring our client's vision to life.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-12 animate-on-scroll" style="--delay: 0.3s;">
+                            <h3 class="font-cinzel text-2xl md:text-3xl font-bold uppercase text-blue-400">Our Mission</h3>
+                            <p class="mt-4 text-lg text-zinc-300 leading-relaxed">
+                                At Above All Dreams, our mission is simple: to provide the best possible service to every client looking to expand their brand and share their story. We believe that great media production goes beyond technical skill; it's about understanding your goals and delivering a final product that exceeds all expectations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section id="cta" class="py-24 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="font-cinzel text-4xl md:text-5xl font-bold uppercase text-dark-blue-500 animate-on-scroll">Ready to tell your story?</h2>
+                <p class="font-subheadline text-2xl md:text-4xl text-gold-400 mt-4 animate-on-scroll" style="--delay: 0.2s;">Let's create something unforgettable together.</p>
+                <div class="mt-12 animate-on-scroll" style="--delay: 0.4s;">
+                     <a href="contact.html" class="nav-link-button text-xl md:text-2xl px-12 py-5">Partner With Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-transparent">
+        <div class="container mx-auto px-6 text-center">
+            <img src="images/Assets/AAD_Logo.png" class="h-16 w-auto mx-auto mb-6 opacity-75">
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="portfolio.html" class="nav-link">Portfolio</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-gold-400 max-w-lg mx-auto">
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 text-zinc-400">
+                    <a href="mailto:Abovealldreams2@outlook.com" class="flex items-center gap-2 hover:text-gold-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/></svg>
+                        <span>Abovealldreams2@outlook.com</span>
+                    </a>
+                    <a href="tel:+14076072000" class="flex items-center gap-2 hover:text-gold-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/></svg>
+                        <span>407-607-2000</span>
+                    </a>
+                </div>
+                 <a href="https://www.google.com/maps/search/?api=1&query=332+Wilshire+Blvd+Casselberry+FL+32707" target="_blank" rel="noopener noreferrer" class="mt-4 flex items-center justify-center gap-2 text-zinc-400 hover:text-gold-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                    <span>332 Wilshire Blvd, Casselberry, FL 32707</span>
+                </a>
+            </div>
+            <p class="mt-8 text-sm text-zinc-500">© 2025 Above All Dreams Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Back to Top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+        </svg>
+    </button>
+
+    <script>
+    // This script runs after the entire HTML document has been loaded.
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Global Element Selectors ---
+        const backToTopButton = document.getElementById('back-to-top');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const typewriterElement = document.getElementById('typewriter');
+
+        // --- Mobile Menu Functionality ---
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('menu-active');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('menu-active');
+                });
+            });
+        }
+        
+        // --- Scroll-based Animations ---
+        const elementsToAnimate = document.querySelectorAll('.animate-on-scroll, .hero-text-animate');
+        if (elementsToAnimate.length > 0) {
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.style.getPropertyValue('--delay');
+                        entry.target.style.transitionDelay = delay || '0s';
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elementsToAnimate.forEach(el => animationObserver.observe(el));
+        }
+        
+        // --- Particle Background Animation ---
+        const setupParticleCanvas = (canvasId, particleDivisor) => {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            const resizeCanvas = () => {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                initParticles();
+            }
+
+            class Particle {
+                constructor(x, y, dirX, dirY, size, color) { this.x = x; this.y = y; this.directionX = dirX; this.directionY = dirY; this.size = size; this.color = color; }
+                draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill(); }
+                update() { if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX; if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY; this.x += this.directionX; this.y += this.directionY; this.draw(); }
+            }
+
+            const initParticles = () => {
+                particlesArray = [];
+                let numberOfParticles = (canvas.height * canvas.width) / particleDivisor;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * (canvas.width - size * 2)) + size * 2;
+                    let y = (Math.random() * (canvas.height - size * 2)) + size * 2;
+                    let dirX = (Math.random() * 0.4) - 0.2;
+                    let dirY = (Math.random() * 0.4) - 0.2;
+                    let color = i % 2 === 0 ? 'rgba(167, 139, 250, 0.3)' : 'rgba(212, 175, 55, 0.3)';
+                    particlesArray.push(new Particle(x, y, dirX, dirY, size, color));
+                }
+            };
+
+            const animateParticles = () => { if(particlesArray) { ctx.clearRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => p.update()); } requestAnimationFrame(animateParticles); };
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animateParticles();
+        };
+
+        setupParticleCanvas('particle-canvas', 12000);
+        setupParticleCanvas('hero-particle-canvas', 9000);
+
+        // --- Hero Typewriter Effect ---
+        if (typewriterElement) {
+            const text = typewriterElement.textContent;
+            typewriterElement.innerHTML = '';
+            text.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for spaces
+                span.style.animationDelay = `${index * 0.05}s`;
+                typewriterElement.appendChild(span);
+            });
+        }
+
+        // --- Back to Top Button ---
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                backToTopButton.classList.toggle('show', window.scrollY > 400);
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
